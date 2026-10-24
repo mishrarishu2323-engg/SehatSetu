@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Login | SehatSetu</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        body.patient-login-page {
+            margin: 0;
+            min-height: 100vh;
+            background: #f3f8f3;
+        }
+
+        .patient-login-main {
+            width: 100%;
+            min-height: 100vh;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 16px;
+        }
+
+        .patient-login-card {
+            width: 100%;
+            max-width: 430px;
+            box-sizing: border-box;
+            padding: 32px;
+            background: #fff;
+            border: 1px solid #dcebdd;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(28, 92, 43, 0.08);
+        }
+
+        .patient-login-card h1 {
+            margin: 0 0 10px;
+            color: #247a3b;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .patient-login-subtitle {
+            margin: 0 0 22px;
+            color: #666;
+            text-align: center;
+        }
+
+        .patient-login-card label {
+            display: block;
+            margin: 16px 0 7px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .patient-login-card input {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 1px solid #cbdccf;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .patient-login-card input:focus {
+            outline: 2px solid #8acb98;
+            border-color: #32964b;
+        }
+
+        .patient-login-button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #278441;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .patient-login-button:hover {
+            background: #1d6833;
+        }
+
+        .patient-login-back {
+            display: inline-block;
+            margin-top: 22px;
+            color: #17652b;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .patient-login-back:hover {
+            color: #218838;
+            text-decoration: none;
+        }
+
+        .patient-login-message {
+            margin: 14px 0 0;
+            color: #b42318;
+            text-align: center;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .patient-login-message.success {
+            color: #17652b;
+        }
+
+        .patient-form-hidden {
+            display: none;
+        }
+
+        .patient-form-switch {
+            margin: 18px 0 0;
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .patient-form-switch button {
+            border: none;
+            background: none;
+            color: #218838;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .patient-form-switch button:hover {
+            color: #17652b;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .patient-login-card {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body class="patient-login-page">
+
+    <main class="patient-login-main">
+        <section class="patient-login-card">
+
+            <h1 id="formTitle">Patient Login</h1>
+
+            <p class="patient-login-subtitle" id="formSubtitle">
+                Welcome to SehatSetu Healthcare
+            </p>
+
+            <!-- PATIENT LOGIN FORM -->
+            <form id="patientLoginForm">
+
+                <label for="patientEmail">
+                    Email or Mobile Number
+                </label>
+
+                <input
+                    type="text"
+                    id="patientEmail"
+                    name="email"
+                    placeholder="Enter email or mobile number"
+                    autocomplete="username"
+                    required
+                >
+
+                <label for="patientPassword">Password</label>
+
+                <input
+                    type="password"
+                    id="patientPassword"
+                    name="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <button type="submit" class="patient-login-button">
+                    Login
+                </button>
+
+                <p
+                    id="patientLoginMessage"
+                    class="patient-login-message"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+            </form>
+
+            <!-- PATIENT REGISTRATION FORM -->
+            <form id="patientRegisterForm" class="patient-form-hidden">
+
+                <label for="registerName">Full Name</label>
+
+                <input
+                    type="text"
+                    id="registerName"
+                    name="name"
+                    placeholder="Enter your full name"
+                    autocomplete="name"
+                    required
+                >
+
+                <label for="registerEmail">Email Address</label>
+
+                <input
+                    type="email"
+                    id="registerEmail"
+                    name="email"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+
+                <label for="registerPhone">Mobile Number</label>
+
+                <input
+                    type="tel"
+                    id="registerPhone"
+                    name="phone"
+                    placeholder="Enter your mobile number"
+                    autocomplete="tel"
+                >
+
+                <label for="registerPassword">Create Password</label>
+
+                <input
+                    type="password"
+                    id="registerPassword"
+                    name="password"
+                    placeholder="At least 8 characters"
+                    minlength="8"
+                    autocomplete="new-password"
+                    required
+                >
+
+                <button type="submit" class="patient-login-button">
+                    Create Account
+                </button>
+
+                <p
+                    id="patientRegisterMessage"
+                    class="patient-login-message"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+            </form>
+
+            <p class="patient-form-switch">
+                <span id="switchText">New to SehatSetu?</span>
+                <button type="button" id="switchFormButton">
+                    Create Account
+                </button>
+            </p>
+
+            <a href="../index.html" class="patient-login-back">
+                ← Back to Dashboard
+            </a>
+
+        </section>
+    </main>
+
+    <script>
+        const loginForm = document.getElementById("patientLoginForm");
+        const registerForm = document.getElementById("patientRegisterForm");
+        const formTitle = document.getElementById("formTitle");
+        const formSubtitle = document.getElementById("formSubtitle");
+        const switchText = document.getElementById("switchText");
+        const switchButton = document.getElementById("switchFormButton");
+
+        function showLogin() {
+            loginForm.classList.remove("patient-form-hidden");
+            registerForm.classList.add("patient-form-hidden");
+
+            formTitle.textContent = "Patient Login";
+            formSubtitle.textContent = "Welcome to SehatSetu Healthcare";
+            switchText.textContent = "New to SehatSetu?";
+            switchButton.textContent = "Create Account";
+
+            document.getElementById("patientLoginMessage").textContent = "";
+            document.getElementById("patientRegisterMessage").textContent = "";
+        }
+
+        function showRegister() {
+            loginForm.classList.add("patient-form-hidden");
+            registerForm.classList.remove("patient-form-hidden");
+
+            formTitle.textContent = "Patient Registration";
+            formSubtitle.textContent = "Create your SehatSetu account";
+            switchText.textContent = "Already have an account?";
+            switchButton.textContent = "Login";
+
+            document.getElementById("patientLoginMessage").textContent = "";
+            document.getElementById("patientRegisterMessage").textContent = "";
+        }
+
+        switchButton.addEventListener("click", function () {
+            if (registerForm.classList.contains("patient-form-hidden")) {
+                showRegister();
+            } else {
+                showLogin();
+            }
+        });
+
+        loginForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const message = document.getElementById("patientLoginMessage");
+            message.classList.remove("success");
+            message.textContent = "Please wait...";
+
+            try {
+                const response = await fetch("/api/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: loginForm.elements["email"].value.trim(),
+                        password: loginForm.elements["password"].value
+                    })
+                });
+
+                const data = await response.json();
+                message.textContent = data.message || "Login failed.";
+
+                if (response.ok && data.ok) {
+                    window.location.href = data.redirect || "/dashboard";
+                }
+            } catch (error) {
+                message.textContent =
+                    "Server not reachable. Please start the Flask app.";
+            }
+        });
+
+        registerForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const message = document.getElementById("patientRegisterMessage");
+            message.classList.remove("success");
+            message.textContent = "Creating your account...";
+
+            const name = registerForm.elements["name"].value.trim();
+            const email = registerForm.elements["email"].value.trim();
+            const phone = registerForm.elements["phone"].value.trim();
+            const password = registerForm.elements["password"].value;
+
+            try {
+                const response = await fetch("/api/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        password: password
+                    })
+                });
+
+                const data = await response.json();
+                message.textContent = data.message || "Registration failed.";
+
+                if (response.ok && data.ok) {
+                    message.classList.add("success");
+                    registerForm.reset();
+
+                    setTimeout(function () {
+                        showLogin();
+                        document.getElementById("patientEmail").value = email;
+                        const loginMessage =
+                            document.getElementById("patientLoginMessage");
+
+                        loginMessage.classList.add("success");
+                        loginMessage.textContent =
+                            "Account created. Please log in.";
+                    }, 1000);
+                }
+            } catch (error) {
+                message.textContent =
+                    "Server not reachable. Please start the Flask app.";
+            }
+        });
+    </script>
+
+</body>
+</html>

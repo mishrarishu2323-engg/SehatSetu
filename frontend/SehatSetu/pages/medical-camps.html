@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Camps | SehatSetu</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .page-heading { margin-bottom: 25px; }
+        .page-heading h1 {
+            color: #17652b;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+        .page-heading p,
+        .section-heading p { color: #718078; }
+
+        .camp-search {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            padding: 22px;
+            background: #fff;
+            border: 1px solid #e0ebe2;
+            border-radius: 14px;
+        }
+
+        .camp-search input {
+            flex: 1;
+            min-width: 0;
+            padding: 12px;
+            border: 1px solid #d5e2d7;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .camp-search button,
+        .register-btn,
+        .retry-btn {
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            background: #218838;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .camp-search button:hover,
+        .register-btn:hover,
+        .retry-btn:hover { background: #17652b; }
+
+        .camp-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .camp-card {
+            padding: 24px;
+            background: white;
+            border: 1px solid #e0ebe2;
+            border-radius: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .camp-icon { font-size: 32px; margin-bottom: 12px; }
+
+        .camp-status {
+            display: inline-block;
+            background: #eaf6ec;
+            color: #17652b;
+            border-radius: 20px;
+            padding: 5px 10px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .camp-card h3 {
+            color: #17652b;
+            margin-bottom: 12px;
+        }
+
+        .camp-card p {
+            color: #718078;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 9px;
+        }
+
+        .register-btn { margin-top: 12px; }
+
+        .camp-message {
+            display: none;
+            margin-top: 12px;
+            color: #17652b;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #17652b;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .back-link:hover {
+            text-decoration: none;
+            color: #218838;
+        }
+
+        .no-results,
+        .loading-message,
+        .error-message {
+            padding: 18px;
+            margin: 16px 0;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+
+        .no-results,
+        .loading-message {
+            background: #eaf6ec;
+            color: #17652b;
+        }
+
+        .error-message {
+            background: #fff1f0;
+            color: #a12622;
+        }
+
+        .section-heading { margin-bottom: 16px; }
+        .section-heading h2 {
+            color: #17652b;
+            margin-bottom: 6px;
+        }
+
+        [hidden] { display: none !important; }
+
+        @media (max-width: 650px) {
+            .camp-grid { grid-template-columns: 1fr; }
+            .camp-search { flex-direction: column; }
+        }
+    </style>
+</head>
+
+<body>
+<header class="header">
+    <a href="../index.html" class="logo">
+        <span class="logo-icon">✚</span>
+        <span>SehatSetu</span>
+    </a>
+
+    <div class="header-actions">
+        <button id="languageBtn" class="language-btn"
+                onclick="toggleLanguage()">हिंदी</button>
+
+        <a href="patient-login.html" class="login-btn"
+           data-en="Patient Login" data-hi="मरीज़ लॉगिन">
+            Patient Login
+        </a>
+    </div>
+</header>
+
+<div class="app-container">
+    <aside class="sidebar">
+        <h3 data-en="MAIN MENU" data-hi="मुख्य मेन्यू">MAIN MENU</h3>
+
+        <a href="../index.html" class="nav-link">
+            <span>🏠</span>
+            <span data-en="Dashboard" data-hi="डैशबोर्ड">Dashboard</span>
+        </a>
+
+        <a href="healthcare.html" class="nav-link">
+            <span>🏥</span>
+            <span data-en="Find Healthcare" data-hi="अस्पताल खोजें">Find Healthcare</span>
+        </a>
+
+        <a href="medical-camps.html" class="nav-link active">
+            <span>⛑️</span>
+            <span data-en="Medical Camps" data-hi="मेडिकल कैंप">Medical Camps</span>
+        </a>
+
+        <a href="health-awareness.html" class="nav-link">
+            <span>📢</span>
+            <span data-en="Health Awareness" data-hi="स्वास्थ्य जागरूकता">Health Awareness</span>
+        </a>
+
+        <a href="contact-provider.html" class="nav-link">
+            <span>💬</span>
+            <span data-en="Contact Provider"
+                  data-hi="स्वास्थ्य सेवा प्रदाता से संपर्क">
+                Contact Provider
+            </span>
+        </a>
+
+        <div class="sidebar-bottom">
+            <a href="admin-login.html" class="nav-link">
+                <span>🔐</span>
+                <span data-en="Admin Login" data-hi="एडमिन लॉगिन">
+                    Admin Login
+                </span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <a href="../index.html" class="back-link"
+           data-en="← Back to Dashboard"
+           data-hi="← डैशबोर्ड पर वापस जाएँ">
+            ← Back to Dashboard
+        </a>
+
+        <section class="page-heading">
+            <h1 data-en="Medical Camps" data-hi="मेडिकल कैंप">
+                Medical Camps
+            </h1>
+            <p data-en="Discover health camps and explore registration options."
+               data-hi="स्वास्थ्य शिविर खोजें और पंजीकरण के विकल्प देखें।">
+                Discover health camps and explore registration options.
+            </p>
+        </section>
+
+        <section class="camp-search">
+            <input type="text" id="campSearch"
+                   placeholder="Search by camp name, service or location"
+                   data-placeholder-en="Search by camp name, service or location"
+                   data-placeholder-hi="कैंप के नाम, सेवा या स्थान से खोजें">
+
+            <button type="button" id="searchButton"
+                    data-en="Search Camps" data-hi="कैंप खोजें">
+                Search Camps
+            </button>
+        </section>
+
+        <div class="section-heading">
+            <h2 data-en="Available Camps" data-hi="उपलब्ध कैंप">
+                Available Camps
+            </h2>
+            <p data-en="Camp information retrieved from SehatSetu."
+               data-hi="सेहतसेतु डेटाबेस से प्राप्त कैंप की जानकारी।">
+                Camp information retrieved from SehatSetu.
+            </p>
+        </div>
+
+        <p id="loadingMessage" class="loading-message"
+           data-en="Loading medical camps..."
+           data-hi="मेडिकल कैंप लोड हो रहे हैं...">
+            Loading medical camps...
+        </p>
+
+        <p id="errorMessage" class="error-message" role="alert" hidden
+           data-en="Unable to load camps. Check that the backend server is running."
+           data-hi="कैंप लोड नहीं हो सके। कृपया बैकएंड सर्वर चालू होने की जाँच करें।">
+            Unable to load camps. Check that the backend server is running.
+        </p>
+
+        <section class="camp-grid" id="campGrid" aria-live="polite"></section>
+
+        <p class="no-results" id="noResults" hidden
+           data-en="No matching camps found. Try another search."
+           data-hi="कोई मिलता-जुलता कैंप नहीं मिला। दूसरा खोज शब्द आज़माएँ।">
+            No matching camps found. Try another search.
+        </p>
+
+        <button id="retryButton" class="retry-btn" type="button" hidden
+                data-en="Try Again" data-hi="दोबारा प्रयास करें">
+            Try Again
+        </button>
+
+        <footer class="footer"
+                data-en="© 2026 SehatSetu. Healthcare for Everyone."
+                data-hi="© 2026 सेहतसेतु। सबके लिए स्वास्थ्य सेवा।">
+            © 2026 SehatSetu. Healthcare for Everyone.
+        </footer>
+    </main>
+</div>
+
+<script src="../js/script.js"></script>
+<script>
+    const campGrid = document.getElementById("campGrid");
+    const campSearch = document.getElementById("campSearch");
+    const loadingMessage = document.getElementById("loadingMessage");
+    const errorMessage = document.getElementById("errorMessage");
+    const noResults = document.getElementById("noResults");
+    const retryButton = document.getElementById("retryButton");
+
+    let allCamps = [];
+
+    function currentLanguageIsHindi() {
+    return localStorage.getItem("sehatSetuLanguage") === "hi";
+    }
+
+    function translatePage() {
+        const isHindi = currentLanguageIsHindi();
+        document.documentElement.lang = isHindi ? "hi" : "en";
+
+        document.querySelectorAll("[data-en][data-hi]").forEach(function(element) {
+            if (element === campSearch) return;
+            element.textContent = isHindi
+                ? element.dataset.hi
+                : element.dataset.en;
+        });
+
+        campSearch.placeholder = isHindi
+            ? campSearch.dataset.placeholderHi
+            : campSearch.dataset.placeholderEn;
+    }
+
+    function valueFrom(camp, keys) {
+        for (const key of keys) {
+            if (camp[key] !== null &&
+                camp[key] !== undefined &&
+                String(camp[key]).trim() !== "") {
+                return camp[key];
+            }
+        }
+        return "";
+    }
+
+    function formatDate(value) {
+        if (!value) return "";
+
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return String(value);
+
+        return date.toLocaleDateString(
+            currentLanguageIsHindi() ? "hi-IN" : "en-IN",
+            { day: "numeric", month: "short", year: "numeric" }
+        );
+    }
+
+    function addParagraph(card, english, hindi) {
+        const p = document.createElement("p");
+        p.dataset.en = english;
+        p.dataset.hi = hindi;
+        p.textContent = currentLanguageIsHindi() ? hindi : english;
+        card.appendChild(p);
+    }
+
+    function renderCamps(camps) {
+        campGrid.replaceChildren();
+
+        camps.forEach(function(camp) {
+            const card = document.createElement("article");
+            card.className = "camp-card";
+
+            const campId = valueFrom(camp, ["camp_id", "id"]);
+            card.dataset.campId = campId;
+
+            const icon = document.createElement("div");
+            icon.className = "camp-icon";
+            icon.textContent = "⛑️";
+            card.appendChild(icon);
+
+            const status = document.createElement("span");
+            status.className = "camp-status";
+            const rawStatus = valueFrom(camp, ["status", "camp_status"]);
+            status.textContent = rawStatus || "Available";
+            card.appendChild(status);
+
+            const name = valueFrom(camp, [
+                "camp_name", "name", "title", "event_name"
+            ]) || "Medical Camp";
+
+            const title = document.createElement("h3");
+            title.textContent = name;
+            card.appendChild(title);
+
+            const description = valueFrom(camp, ["description", "services"]);
+            const location = [
+                valueFrom(camp, ["location", "address", "venue"]),
+                valueFrom(camp, ["city"]),
+                valueFrom(camp, ["state"])
+            ].filter(Boolean).join(", ");
+
+            const startDate = valueFrom(camp, [
+                "start_date", "camp_date", "event_date", "date"
+            ]);
+            const endDate = valueFrom(camp, ["end_date"]);
+            const phone = valueFrom(camp, [
+                "contact_phone", "phone", "contact_number"
+            ]);
+
+            if (startDate) {
+                let dateText = formatDate(startDate);
+                if (endDate) dateText += " – " + formatDate(endDate);
+                addParagraph(card, "📅 Date: " + dateText,
+                    "📅 तारीख: " + dateText);
+            } else {
+                addParagraph(card, "📅 Date: To be confirmed",
+                    "📅 तारीख: अभी घोषित नहीं");
+            }
+
+            if (location) {
+                addParagraph(card, "📍 Location: " + location,
+                    "📍 स्थान: " + location);
+            }
+
+            if (description) {
+                addParagraph(card, "🩺 Services: " + description,
+                    "🩺 सेवाएँ: " + description);
+            }
+
+            if (phone) {
+                addParagraph(card, "☎ Contact: " + phone,
+                    "☎ संपर्क: " + phone);
+            }
+
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "register-btn";
+            button.dataset.en = "Register Interest";
+            button.dataset.hi = "रुचि दर्ज करें";
+            button.textContent = currentLanguageIsHindi()
+                ? button.dataset.hi
+                : button.dataset.en;
+
+            const message = document.createElement("p");
+            message.className = "camp-message";
+            message.setAttribute("role", "status");
+
+            button.addEventListener("click", function() {
+                registerCamp(campId, button, message);
+            });
+
+            card.appendChild(button);
+            card.appendChild(message);
+            campGrid.appendChild(card);
+        });
+
+        translatePage();
+    }
+
+    function searchCamps() {
+        const query = campSearch.value.trim().toLowerCase();
+
+        const filtered = allCamps.filter(function(camp) {
+            return JSON.stringify(camp).toLowerCase().includes(query);
+        });
+
+        renderCamps(filtered);
+        noResults.hidden = filtered.length !== 0;
+    }
+
+    async function loadCamps() {
+        loadingMessage.hidden = false;
+        errorMessage.hidden = true;
+        noResults.hidden = true;
+        retryButton.hidden = true;
+        campGrid.replaceChildren();
+
+        try {
+            const response = await fetch("/api/camps", {
+                method: "GET",
+                headers: { "Accept": "application/json" },
+                credentials: "same-origin"
+            });
+
+            if (!response.ok) {
+                throw new Error("Camp request failed: " + response.status);
+            }
+
+            const result = await response.json();
+
+            if (Array.isArray(result)) {
+                allCamps = result;
+            } else if (Array.isArray(result.camps)) {
+                allCamps = result.camps;
+            } else if (Array.isArray(result.data)) {
+                allCamps = result.data;
+            } else {
+                throw new Error("Unexpected camps API response.");
+            }
+
+            loadingMessage.hidden = true;
+            searchCamps();
+        } catch (error) {
+            console.error("Unable to load medical camps:", error);
+            loadingMessage.hidden = true;
+            errorMessage.hidden = false;
+            retryButton.hidden = false;
+        }
+    }
+
+    async function registerCamp(campId, button, message) {
+        const isHindi = currentLanguageIsHindi();
+
+        if (!campId) {
+            message.textContent = isHindi
+                ? "इस कैंप की ID उपलब्ध नहीं है।"
+                : "This camp does not have an available ID.";
+            message.style.display = "block";
+            return;
+        }
+
+        button.disabled = true;
+        button.textContent = isHindi ? "कृपया प्रतीक्षा करें..." : "Please wait...";
+        message.style.display = "block";
+        message.textContent = isHindi
+            ? "पंजीकरण अनुरोध भेजा जा रहा है..."
+            : "Sending registration request...";
+
+        try {
+            const response = await fetch(
+                "/api/camps/" + encodeURIComponent(campId) + "/register",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    credentials: "same-origin",
+                    body: JSON.stringify({})
+                }
+            );
+
+            let result = {};
+            try {
+                result = await response.json();
+            } catch (error) {
+                result = {};
+            }
+
+            if (!response.ok || result.ok === false) {
+                if (response.status === 401 || response.status === 403) {
+                    throw new Error(isHindi
+                        ? "पंजीकरण के लिए पहले लॉगिन करें।"
+                        : "Please log in before registering.");
+                }
+
+                throw new Error(result.message || (isHindi
+                    ? "पंजीकरण पूरा नहीं हो सका।"
+                    : "Registration could not be completed."));
+            }
+
+            message.textContent = result.message || (isHindi
+                ? "पंजीकरण अनुरोध सफलतापूर्वक भेजा गया।"
+                : "Registration request submitted successfully.");
+        } catch (error) {
+            message.textContent = error.message || (isHindi
+                ? "सर्वर से संपर्क नहीं हो सका।"
+                : "Could not contact the server.");
+        } finally {
+            button.disabled = false;
+            button.textContent = isHindi
+                ? button.dataset.hi
+                : button.dataset.en;
+        }
+    }
+
+    document.getElementById("searchButton")
+        .addEventListener("click", searchCamps);
+
+    campSearch.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") searchCamps();
+    });
+
+    retryButton.addEventListener("click", loadCamps);
+
+    const originalToggleLanguage = window.toggleLanguage;
+    if (typeof originalToggleLanguage === "function") {
+        window.toggleLanguage = function() {
+            originalToggleLanguage.apply(this, arguments);
+            translatePage();
+        };
+    }
+
+    translatePage();
+    loadCamps();
+</script>
+</body>
+</html>

@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Healthcare | SehatSetu</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        
+        .page-heading {
+            .page-heading {
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            background: linear-gradient(120deg, #e4f5e7, #f8fcf8);
+            border: 1px solid #d9eedc;
+            border-radius: 18px;
+            box-sizing: border-box;
+        }
+        }
+
+        .page-heading h1 {
+            color: #17652b;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: #718078;
+        }
+
+        .search-panel {
+            background: #fff;
+            padding: 24px;
+            border: 1px solid #e0ebe2;
+            border-radius: 14px;
+            margin-bottom: 25px;
+        }
+
+        .search-panel label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .search-row input,
+        .search-row select {
+            min-width: 0;
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #d5e2d7;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .search-row button {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 8px;
+            background: #218838;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .search-row button:hover {
+            background: #17652b;
+        }
+
+        .facility-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .facility-card {
+            background: #fff;
+            border: 1px solid #e0ebe2;
+            border-radius: 14px;
+            padding: 22px;
+            overflow-wrap: anywhere;
+        }
+
+        .facility-card h3 {
+            color: #17652b;
+            margin-bottom: 10px;
+        }
+
+        .facility-card p {
+            color: #718078;
+            font-size: 14px;
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .facility-type {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #eaf6ec;
+            color: #17652b;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .facility-card a {
+            color: #17652b;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .facility-card a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #17652b;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .back-link:hover {
+            text-decoration: none;
+            color: #218838;
+        }
+
+        .empty-message,
+        .loading-message,
+        .error-message {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 16px 0;
+            line-height: 1.6;
+        }
+
+        .empty-message,
+        .loading-message {
+            background: #eaf6ec;
+            color: #17652b;
+        }
+
+        .error-message {
+            background: #fff1f0;
+            color: #a12622;
+        }
+
+        .section-heading {
+            margin-bottom: 16px;
+        }
+
+        .section-heading h2 {
+            color: #17652b;
+            margin-bottom: 6px;
+        }
+
+        .section-heading p {
+            color: #718078;
+            font-size: 14px;
+        }
+
+        @media (max-width: 650px) {
+            .search-row {
+                flex-direction: column;
+            }
+
+            .facility-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <a href="../index.html" class="logo">
+        <span class="logo-icon">✚</span>
+        <span>SehatSetu</span>
+    </a>
+
+    <div class="header-actions">
+        <button
+            id="languageBtn"
+            class="language-btn"
+            onclick="toggleLanguage()">
+            हिंदी
+        </button>
+
+        <a
+            href="patient-login.html"
+            class="login-btn"
+            data-en="Patient Login"
+            data-hi="मरीज़ लॉगिन">
+            Patient Login
+        </a>
+    </div>
+</header>
+
+<div class="app-container">
+
+    <aside class="sidebar">
+        <h3 data-en="MAIN MENU" data-hi="मुख्य मेन्यू">
+            MAIN MENU
+        </h3>
+
+        <a href="../index.html" class="nav-link">
+            <span>🏠</span>
+            <span data-en="Dashboard" data-hi="डैशबोर्ड">
+                Dashboard
+            </span>
+        </a>
+
+        <a href="healthcare.html" class="nav-link active">
+            <span>🏥</span>
+            <span data-en="Find Healthcare" data-hi="अस्पताल खोजें">
+                Find Healthcare
+            </span>
+        </a>
+
+        <a href="medical-camps.html" class="nav-link">
+            <span>⛑️</span>
+            <span data-en="Medical Camps" data-hi="मेडिकल कैंप">
+                Medical Camps
+            </span>
+        </a>
+
+        <a href="health-awareness.html" class="nav-link">
+            <span>📢</span>
+            <span
+                data-en="Health Awareness"
+                data-hi="स्वास्थ्य जागरूकता">
+                Health Awareness
+            </span>
+        </a>
+
+        <a href="contact-provider.html" class="nav-link">
+            <span>💬</span>
+            <span
+                data-en="Contact Provider"
+                data-hi="स्वास्थ्य सेवा प्रदाता से संपर्क">
+                Contact Provider
+            </span>
+        </a>
+
+        <div class="sidebar-bottom">
+            <a href="admin-login.html" class="nav-link">
+                <span>🔐</span>
+                <span data-en="Admin Login" data-hi="एडमिन लॉगिन">
+                    Admin Login
+                </span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <a
+            href="../index.html"
+            class="back-link"
+            data-en="← Back to Dashboard"
+            data-hi="← डैशबोर्ड पर वापस जाएँ">
+            ← Back to Dashboard
+        </a>
+
+        <section class="awareness-hero">
+            <h1
+                data-en="Find Healthcare"
+                data-hi="अस्पताल खोजें">
+                Find Healthcare
+            </h1>
+
+            <p
+                data-en="Search for hospitals, clinics and healthcare facilities."
+                data-hi="अस्पताल, क्लिनिक और स्वास्थ्य सुविधाएँ खोजें।">
+                Search for hospitals, clinics and healthcare facilities.
+            </p>
+        </section>
+
+        <section class="search-panel">
+            <label
+                for="facilitySearch"
+                data-en="Search by name or location"
+                data-hi="नाम या स्थान से खोजें">
+                Search by name or location
+            </label>
+
+            <div class="search-row">
+                <input
+                    type="text"
+                    id="facilitySearch"
+                    placeholder="Enter hospital, clinic or location"
+                    data-placeholder-en="Enter hospital, clinic or location"
+                    data-placeholder-hi="अस्पताल, क्लिनिक या स्थान लिखें">
+
+                <select id="facilityType" aria-label="Facility type">
+                    <option
+                        value="all"
+                        data-en="All Facilities"
+                        data-hi="सभी सुविधाएँ">
+                        All Facilities
+                    </option>
+
+                    <option
+                        value="hospital"
+                        data-en="Hospital"
+                        data-hi="अस्पताल">
+                        Hospital
+                    </option>
+
+                    <option
+                        value="clinic"
+                        data-en="Clinic"
+                        data-hi="क्लिनिक">
+                        Clinic
+                    </option>
+
+                    <option
+                        value="health centre"
+                        data-en="Health Centre"
+                        data-hi="स्वास्थ्य केंद्र">
+                        Health Centre
+                    </option>
+                </select>
+
+                <button
+                    type="button"
+                    id="searchButton"
+                    data-en="Search"
+                    data-hi="खोजें">
+                    Search
+                </button>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-heading">
+                <h2
+                    data-en="Healthcare Facilities"
+                    data-hi="स्वास्थ्य सुविधाएँ">
+                    Healthcare Facilities
+                </h2>
+
+                <p
+                    data-en="Showing verified healthcare facilities available in SehatSetu."
+                    data-hi="सेहतसेतु पर उपलब्ध सत्यापित स्वास्थ्य सुविधाएँ।">
+                    Showing verified healthcare facilities available in SehatSetu.
+                </p>
+            </div>
+
+            <p
+                id="loadingMessage"
+                class="loading-message"
+                data-en="Loading healthcare facilities..."
+                data-hi="स्वास्थ्य सुविधाएँ लोड हो रही हैं...">
+                Loading healthcare facilities...
+            </p>
+
+            <p
+                id="errorMessage"
+                class="error-message"
+                role="alert"
+                hidden
+                data-en="Unable to load facilities. Please check that the backend server is running and try again."
+                data-hi="स्वास्थ्य सुविधाएँ लोड नहीं हो सकीं। कृपया बैकएंड सर्वर चालू करके दोबारा प्रयास करें।">
+                Unable to load facilities. Please check that the backend server is running and try again.
+            </p>
+
+            <section
+                class="facility-list"
+                id="facilityList"
+                aria-live="polite">
+            </section>
+
+            <p
+                class="empty-message"
+                id="emptyMessage"
+                hidden
+                data-en="No matching verified facilities found. Try another search."
+                data-hi="कोई मिलती-जुलती सत्यापित सुविधा नहीं मिली। दूसरा खोज शब्द आज़माएँ।">
+                No matching verified facilities found. Try another search.
+            </p>
+
+            <button
+                type="button"
+                id="retryButton"
+                hidden
+                data-en="Try Again"
+                data-hi="दोबारा प्रयास करें">
+                Try Again
+            </button>
+        </section>
+
+        <footer
+            class="footer"
+            data-en="© 2026 SehatSetu. Healthcare for Everyone."
+            data-hi="© 2026 सेहतसेतु। सबके लिए स्वास्थ्य सेवा।">
+            © 2026 SehatSetu. Healthcare for Everyone.
+        </footer>
+
+    </main>
+</div>
+
+<script src="../js/script.js"></script>
+
+<script>
+    const facilityList = document.getElementById("facilityList");
+    const facilitySearch = document.getElementById("facilitySearch");
+    const facilityType = document.getElementById("facilityType");
+    const loadingMessage = document.getElementById("loadingMessage");
+    const errorMessage = document.getElementById("errorMessage");
+    const emptyMessage = document.getElementById("emptyMessage");
+    const retryButton = document.getElementById("retryButton");
+
+    let allFacilities = [];
+
+    // Safely display database values as text.
+    function addTextElement(parent, tagName, text, className) {
+        const element = document.createElement(tagName);
+        element.textContent = text || "";
+
+        if (className) {
+            element.className = className;
+        }
+
+        parent.appendChild(element);
+        return element;
+    }
+
+    function getFacilityName(facility) {
+        return facility.facility_name || facility.name || "Healthcare Facility";
+    }
+
+    function getFacilityType(facility) {
+        return String(facility.facility_type || "other")
+            .trim()
+            .toLowerCase()
+            .replace(/[_-]+/g, " ");
+    }
+
+    function getFacilityAddress(facility) {
+        return [
+            facility.address,
+            facility.city,
+            facility.state,
+            facility.pincode
+        ]
+            .filter(function(value) {
+                return value !== null &&
+                       value !== undefined &&
+                       String(value).trim() !== "";
+            })
+            .join(", ");
+    }
+
+    function getTypeLabel(type) {
+        if (type.includes("hospital")) {
+            return {
+                en: "Hospital",
+                hi: "अस्पताल"
+            };
+        }
+
+        if (type.includes("clinic")) {
+            return {
+                en: "Clinic",
+                hi: "क्लिनिक"
+            };
+        }
+
+        if (
+            type.includes("health centre") ||
+            type.includes("health center") ||
+            type.includes("healthcare centre") ||
+            type.includes("healthcare center")
+        ) {
+            return {
+                en: "Health Centre",
+                hi: "स्वास्थ्य केंद्र"
+            };
+        }
+
+        return {
+            en: type.replace(/\b\w/g, function(letter) {
+                return letter.toUpperCase();
+            }) || "Other Facility",
+            hi: "अन्य स्वास्थ्य सुविधा"
+        };
+    }
+
+    function addTranslatedParagraph(parent, english, hindi) {
+        const paragraph = document.createElement("p");
+        paragraph.dataset.en = english;
+        paragraph.dataset.hi = hindi;
+        paragraph.textContent = english;
+        parent.appendChild(paragraph);
+    }
+
+    function renderFacilities(facilities) {
+        facilityList.replaceChildren();
+
+        facilities.forEach(function(facility) {
+            const card = document.createElement("article");
+            card.className = "facility-card";
+
+            const name = getFacilityName(facility);
+            const type = getFacilityType(facility);
+            const typeLabel = getTypeLabel(type);
+            const address = getFacilityAddress(facility);
+            const description = facility.description || "";
+            const phone = facility.phone || "";
+            const email = facility.email || "";
+            const website = facility.website || "";
+            const openingHours = facility.opening_hours || "";
+
+            const typeBadge = addTextElement(
+                card,
+                "span",
+                typeLabel.en,
+                "facility-type"
+            );
+
+            typeBadge.dataset.en = typeLabel.en;
+            typeBadge.dataset.hi = typeLabel.hi;
+
+            addTextElement(card, "h3", name);
+
+            if (address) {
+                addTranslatedParagraph(
+                    card,
+                    "📍 " + address,
+                    "📍 " + address
+                );
+            }
+
+            if (description) {
+                addTranslatedParagraph(
+                    card,
+                    "🩺 " + description,
+                    "🩺 " + description
+                );
+            }
+
+            if (phone) {
+                addTranslatedParagraph(
+                    card,
+                    "☎ " + phone,
+                    "☎ " + phone
+                );
+            }
+
+            if (email) {
+                addTranslatedParagraph(
+                    card,
+                    "✉ " + email,
+                    "✉ " + email
+                );
+            }
+
+            if (openingHours) {
+                addTranslatedParagraph(
+                    card,
+                    "🕒 " + openingHours,
+                    "🕒 " + openingHours
+                );
+            }
+
+            if (facility.emergency_services) {
+                addTranslatedParagraph(
+                    card,
+                    "🚑 Emergency services available",
+                    "🚑 आपातकालीन सेवाएँ उपलब्ध"
+                );
+            }
+
+            if (website) {
+                try {
+                    const parsedUrl = new URL(website);
+
+                    if (
+                        parsedUrl.protocol === "https:" ||
+                        parsedUrl.protocol === "http:"
+                    ) {
+                        const websiteLink = document.createElement("a");
+                        websiteLink.href = parsedUrl.href;
+                        websiteLink.target = "_blank";
+                        websiteLink.rel = "noopener noreferrer";
+                        websiteLink.textContent = "Visit website";
+                        websiteLink.dataset.en = "Visit website";
+                        websiteLink.dataset.hi = "वेबसाइट देखें";
+                        card.appendChild(websiteLink);
+                    }
+                } catch (error) {
+                    // Ignore invalid website addresses.
+                }
+            }
+
+            facilityList.appendChild(card);
+        });
+
+        applyCurrentLanguage();
+    }
+
+    function applyCurrentLanguage() {
+        const isHindi = localStorage.getItem("sehatSetuLanguage") === "hi";
+
+        document.documentElement.lang = isHindi ? "hi" : "en";
+
+        document.querySelectorAll("[data-en][data-hi]").forEach(function(element) {
+            if (element.tagName === "INPUT") {
+                return;
+            }
+
+            if (element.tagName === "OPTION") {
+                element.textContent = isHindi
+                    ? element.dataset.hi
+                    : element.dataset.en;
+                return;
+            }
+
+            element.textContent = isHindi
+                ? element.dataset.hi
+                : element.dataset.en;
+        });
+
+        facilitySearch.placeholder = isHindi
+            ? facilitySearch.dataset.placeholderHi
+            : facilitySearch.dataset.placeholderEn;
+    }
+
+    function normalizeText(value) {
+        return String(value || "").trim().toLowerCase();
+    }
+
+    function searchFacilities() {
+        const query = normalizeText(facilitySearch.value);
+        const selectedType = facilityType.value;
+
+        const filteredFacilities = allFacilities.filter(function(facility) {
+            const name = normalizeText(getFacilityName(facility));
+            const address = normalizeText(getFacilityAddress(facility));
+            const description = normalizeText(facility.description);
+            const type = getFacilityType(facility);
+
+            const matchesSearch =
+                name.includes(query) ||
+                address.includes(query) ||
+                description.includes(query);
+
+            const matchesType =
+                selectedType === "all" ||
+                type === selectedType ||
+                (
+                    selectedType === "health centre" &&
+                    (
+                        type === "health center" ||
+                        type === "healthcare centre" ||
+                        type === "healthcare center"
+                    )
+                );
+
+            return matchesSearch && matchesType;
+        });
+
+        renderFacilities(filteredFacilities);
+
+        emptyMessage.hidden = filteredFacilities.length !== 0;
+    }
+
+    async function loadFacilities() {
+        loadingMessage.hidden = false;
+        errorMessage.hidden = true;
+        emptyMessage.hidden = true;
+        retryButton.hidden = true;
+        facilityList.replaceChildren();
+
+        try {
+            const response = await fetch("/api/facilities", {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                },
+                credentials: "same-origin"
+            });
+
+            if (!response.ok) {
+                throw new Error("Facilities request failed: " + response.status);
+            }
+
+            const result = await response.json();
+
+            // Support common API response formats.
+            if (Array.isArray(result)) {
+                allFacilities = result;
+            } else if (Array.isArray(result.facilities)) {
+                allFacilities = result.facilities;
+            } else if (Array.isArray(result.data)) {
+                allFacilities = result.data;
+            } else {
+                throw new Error("Unexpected facilities API response.");
+            }
+
+            loadingMessage.hidden = true;
+
+            searchFacilities();
+        } catch (error) {
+            console.error("Unable to load healthcare facilities:", error);
+
+            loadingMessage.hidden = true;
+            errorMessage.hidden = false;
+            retryButton.hidden = false;
+            facilityList.replaceChildren();
+        }
+    }
+
+    document
+        .getElementById("searchButton")
+        .addEventListener("click", searchFacilities);
+
+    facilitySearch.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            searchFacilities();
+        }
+    });
+
+    facilityType.addEventListener("change", searchFacilities);
+
+    retryButton.addEventListener("click", loadFacilities);
+
+    // Update the search placeholder after the language changes.
+    const originalToggleLanguage = window.toggleLanguage;
+
+    if (typeof originalToggleLanguage === "function") {
+        window.toggleLanguage = function() {
+            originalToggleLanguage.apply(this, arguments);
+            applyCurrentLanguage();
+        };
+    }
+
+    applyCurrentLanguage();
+    loadFacilities();
+</script>
+
+</body>
+</html>

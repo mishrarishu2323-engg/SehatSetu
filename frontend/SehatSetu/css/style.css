@@ -1,0 +1,504 @@
+/* =========================
+   SehatSetu - Main Styles
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --green: #218838;
+    --dark-green: #17652b;
+    --light-green: #eaf6ec;
+    --background: #f5faf6;
+    --white: #ffffff;
+    --text: #243b2b;
+    --muted: #718078;
+    --border: #e0ebe2;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* Header */
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 112px;
+    background: var(--background);
+    z-index: 999;
+}
+
+.header {
+    min-height: 80px;
+    padding: 15px 30px;
+    margin: 0;
+    background: #ffffff;
+    border: 1px solid #e0ebe2;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(28, 92, 43, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--dark-green);
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.logo-icon {
+    background: var(--green);
+    color: white;
+    border-radius: 10px;
+    padding: 3px 10px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.language-btn,
+.login-btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.language-btn {
+    color: var(--green);
+    background: white;
+    border: 1px solid var(--green);
+}
+
+.language-btn:hover {
+    background: var(--light-green);
+}
+
+.login-btn {
+    color: white;
+    background: var(--green);
+}
+
+.login-btn:hover {
+    background: var(--dark-green);
+}
+
+/* Application Layout */
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    padding-top: 104px;
+}
+
+/* Sidebar */
+
+.sidebar {
+    position: fixed;
+    top: 104px;
+    left: 16px;
+    bottom: 16px;
+    width: 255px;
+    overflow-y: auto;
+    flex-shrink: 0;
+    background: white;
+    border-right: 1px solid var(--border);
+    padding: 28px 18px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    z-index: 100;   
+}
+
+.sidebar h3 {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin: 0 0 18px 12px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 14px;
+    margin-bottom: 7px;
+    border-radius: 9px;
+    font-size: 14px;
+    color: #526257;
+    transition: 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: var(--light-green);
+    color: var(--dark-green);
+    font-weight: bold;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 30px;
+}
+
+/* Main Dashboard Content */
+
+.main-content {
+    margin-left: 287px;
+    width: calc(100% - 287px);
+    flex: 1;
+    min-width: 0;
+    padding: 30px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-section {
+    padding: 35px;
+    background: linear-gradient(120deg, #e4f5e7, #f8fcf8);
+    border: 1px solid #d9eedc;
+    border-radius: 18px;
+    margin-bottom: 30px;
+}
+
+.eyebrow {
+    color: var(--green);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+
+.welcome-section h1 {
+    color: var(--dark-green);
+    font-size: 32px;
+    line-height: 1.3;
+    margin-bottom: 12px;
+}
+
+.welcome-section > p:last-child {
+    color: #52675a;
+    max-width: 650px;
+}
+
+/* Section Heading */
+
+.section-heading {
+    margin-bottom: 20px;
+}
+
+.section-heading h2 {
+    font-size: 23px;
+    margin-bottom: 5px;
+}
+
+.section-heading p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* Service Cards */
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.service-card {
+    display: block;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    border-color: #a9d8b1;
+    box-shadow: 0 8px 22px rgba(28, 92, 43, 0.08);
+}
+
+.service-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: var(--light-green);
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+
+.service-card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: var(--dark-green);
+}
+
+.service-card p {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 18px;
+}
+
+.card-link {
+    color: var(--green);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Footer */
+
+.footer {
+    padding: 25px 10px;
+    margin-top: 15px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* Responsive Design */
+
+@media (max-width: 900px) {
+    .sidebar {
+        width: 220px;
+        padding: 22px 12px;
+    }
+
+    .main-content {
+        padding: 22px;
+    }
+
+    .welcome-section {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 650px) {
+    .header {
+        padding: 12px 15px;
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .header-actions {
+        gap: 7px;
+    }
+
+    .language-btn,
+    .login-btn {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .app-container {
+        display: flex;
+        min-height: 100vh;
+        padding-top: 130px;
+    }
+
+    .sidebar {
+        height: 100%;
+        overflow-y: auto;
+        flex-shrink: 0;
+    }
+
+    .sidebar h3,
+    .sidebar-bottom {
+        display: none;
+    }
+
+    .nav-link {
+        padding: 10px;
+        margin-bottom: 4px;
+    }
+
+    .main-content {
+        flex: 1;
+        min-width: 0;
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .welcome-section {
+        padding: 22px 18px;
+    }
+
+    .welcome-section h1 {
+        font-size: 25px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card {
+        padding: 20px;
+    }
+}
+
+
+/* =========================
+   At a Glance Section
+========================= */
+
+.glance-section {
+    margin-bottom: 35px;
+}
+
+.glance-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.glance-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 18px;
+    background: #ffffff;
+    border: 1px solid #e0ebe2;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(28, 92, 43, 0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.glance-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 18px rgba(28, 92, 43, 0.09);
+}
+
+.glance-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #eaf6ec;
+    font-size: 23px;
+}
+
+.glance-card h3 {
+    margin-bottom: 4px;
+    color: #17652b;
+    font-size: 25px;
+    line-height: 1.2;
+}
+
+.glance-card p {
+    color: #718078;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* Tablet screens */
+
+@media (max-width: 1000px) {
+    .glance-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Mobile screens */
+
+@media (max-width: 450px) {
+    .glance-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .glance-card {
+        padding: 18px;
+    }
+}
+
+
+
+@media (max-width: 900px) {
+    .sidebar {
+        width: 220px;
+    }
+
+    .main-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        padding: 22px;
+    }
+}
+
+@media (max-width: 650px) {
+    .app-container {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: calc(100vh - 75px);
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+    }
+
+    .sidebar h3,
+    .sidebar-bottom {
+        display: block;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        overflow: visible;
+    }
+
+    .services-grid,
+    .glance-grid {
+        grid-template-columns: 1fr;
+    }
+}

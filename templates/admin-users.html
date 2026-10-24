@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users | SehatSetu</title>
+
+    <style>
+        :root {
+            --green: #218838;
+            --dark-green: #17652b;
+            --light-green: #eaf6ec;
+            --background: #f5faf6;
+            --white: #ffffff;
+            --text: #243b2b;
+            --muted: #718078;
+            --border: #e0ebe2;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            background: var(--background);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: var(--white);
+            padding: 20px 24px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            margin-bottom: 24px;
+        }
+
+        .brand {
+            color: var(--dark-green);
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            margin: 6px 0 0;
+            font-size: 14px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 22px;
+            color: #17652b;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+           color: #218838;
+            text-decoration: none;
+        }
+
+        .panel {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .panel-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 21px;
+        }
+
+        .count {
+            background: var(--light-green);
+            color: var(--dark-green);
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .search {
+            width: 100%;
+            max-width: 380px;
+            padding: 11px 13px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 18px;
+            outline: none;
+        }
+
+        .search:focus {
+            border-color: var(--green);
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        th {
+            background: var(--light-green);
+            color: var(--dark-green);
+        }
+
+        tbody tr:hover {
+            background: #f8fcf8;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .active {
+            background: #e5f6e8;
+            color: #17652b;
+        }
+
+        .inactive {
+            background: #fff0ed;
+            color: #a93226;
+        }
+
+        .message {
+            padding: 18px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .error {
+            color: #b42318;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            .header, .panel {
+                padding: 16px;
+            }
+
+            .brand {
+                font-size: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <header class="header">
+            <div>
+                <h1 class="brand">✚ SehatSetu</h1>
+                <p class="subtitle">Admin Panel / User Management</p>
+            </div>
+
+            <a href="/dashboard" class="back-link">
+                ← Back to Dashboard
+            </a>
+        </header>
+
+        <main class="panel">
+            <div class="panel-heading">
+                <h2>Registered Users</h2>
+                <span class="count" id="userCount">Loading...</span>
+            </div>
+
+            <input
+                type="search"
+                id="searchInput"
+                class="search"
+                placeholder="Search by name, email, phone or role..."
+                aria-label="Search users"
+            >
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="usersTable">
+                        <tr>
+                            <td colspan="6" class="message">
+                                Loading users...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p id="message" class="message" role="status"></p>
+        </main>
+
+    </div>
+
+    <script>
+        const usersTable = document.getElementById("usersTable");
+        const userCount = document.getElementById("userCount");
+        const searchInput = document.getElementById("searchInput");
+        const message = document.getElementById("message");
+
+        let allUsers = [];
+
+        function escapeHTML(value) {
+            return String(value ?? "").replace(/[&<>"']/g, function (char) {
+                const entities = {
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+                };
+
+                return entities[char];
+            });
+        }
+
+        function renderUsers(users) {
+            userCount.textContent = users.length + " users";
+
+            if (users.length === 0) {
+                usersTable.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="message">
+                            No users found.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            usersTable.innerHTML = users.map(function (user) {
+                const isActive =
+                    user.is_active === 1 ||
+                    user.is_active === true ||
+                    user.is_active === "1";
+
+                return `
+                    <tr>
+                        <td>${escapeHTML(user.user_id)}</td>
+                        <td>${escapeHTML(user.full_name)}</td>
+                        <td>${escapeHTML(user.email)}</td>
+                        <td>${escapeHTML(user.phone || "—")}</td>
+                        <td>${escapeHTML(user.role)}</td>
+                        <td>
+                            <span class="status ${isActive ? "active" : "inactive"}">
+                                ${isActive ? "Active" : "Inactive"}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            }).join("");
+        }
+
+        async function loadUsers() {
+            try {
+                const response = await fetch("/admin/users");
+                const data = await response.json();
+
+                if (!response.ok || !data.ok) {
+                    throw new Error(data.message || "Unable to load users.");
+                }
+
+                allUsers = Array.isArray(data.users) ? data.users : [];
+                renderUsers(allUsers);
+
+                message.textContent = "";
+            } catch (error) {
+                userCount.textContent = "Unavailable";
+                usersTable.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="message error">
+                            Could not load users. Please check your admin login
+                            and server connection.
+                        </td>
+                    </tr>
+                `;
+
+                message.textContent = error.message;
+                message.classList.add("error");
+            }
+        }
+
+        searchInput.addEventListener("input", function () {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+
+            const filteredUsers = allUsers.filter(function (user) {
+                return [
+                    user.user_id,
+                    user.full_name,
+                    user.email,
+                    user.phone,
+                    user.role,
+                    user.is_active
+                ].some(function (value) {
+                    return String(value ?? "")
+                        .toLowerCase()
+                        .includes(searchTerm);
+                });
+            });
+
+            renderUsers(filteredUsers);
+        });
+
+        loadUsers();
+    </script>
+</body>
+</html>

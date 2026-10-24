@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Provider | SehatSetu</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .contact-page { max-width: 1100px; margin: 0 auto; }
+
+        .back-dashboard {
+            display: inline-block;
+            color: #17652b;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-dashboard:hover {
+            text-decoration: none;
+            color: #218838;
+        }
+
+        .contact-hero {
+            padding: 30px;
+            background: linear-gradient(120deg, #e4f5e7, #f8fcf8);
+            border: 1px solid #d9eedc;
+            border-radius: 18px;
+            margin-top: 8px;
+            margin-bottom: 28px;
+        }
+
+        .contact-hero h1 {
+            margin: 10px 0;
+            color: #17652b;
+            font-size: 30px;
+        }
+
+        .contact-hero p { color: #526457; margin: 0; }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        .contact-card, .contact-info-card {
+            background: #fff;
+            border: 1px solid #e0ebe2;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 14px rgba(25, 70, 35, 0.05);
+        }
+
+        .contact-card h2, .contact-info-card h2 {
+            margin: 0 0 20px;
+            color: #17652b;
+            font-size: 21px;
+        }
+
+        .form-group { margin-bottom: 17px; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #d5e2d7;
+            border-radius: 9px;
+            background: #fff;
+            color: #243b2b;
+            font: inherit;
+            font-size: 14px;
+        }
+
+        .form-group textarea { min-height: 125px; resize: vertical; }
+
+        .form-group input:focus, .form-group select:focus,
+        .form-group textarea:focus {
+            outline: 2px solid #b6dfbd;
+            border-color: #218838;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 13px 18px;
+            border: 0;
+            border-radius: 9px;
+            background: #218838;
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover { background: #17652b; }
+        .submit-btn:disabled { opacity: 0.65; cursor: wait; }
+
+        .info-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #e7eee8;
+        }
+
+        .info-item:last-child { border-bottom: none; }
+
+        .info-item h3 {
+            margin: 0 0 6px;
+            font-size: 15px;
+            color: #243b2b;
+        }
+
+        .info-item p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #647267;
+        }
+
+        .notice {
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 10px;
+            background: #f1f8f1;
+            color: #405744;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .form-message {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .form-message.success {
+            display: block;
+            background: #eaf6ec;
+            color: #17652b;
+        }
+
+        .form-message.error {
+            display: block;
+            background: #fff1f0;
+            color: #a12622;
+        }
+
+        @media (max-width: 800px) {
+            .contact-layout { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 650px) {
+            .contact-hero, .contact-card, .contact-info-card {
+                padding: 18px;
+            }
+            .contact-hero h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+
+<body>
+<header class="header">
+    <a href="../index.html" class="logo">
+        <span class="logo-icon">✚</span>
+        <span>SehatSetu</span>
+    </a>
+
+    <div class="header-actions">
+        <button id="languageBtn" class="language-btn"
+                type="button" onclick="toggleLanguage()">हिंदी</button>
+        <a href="patient-login.html" class="login-btn"
+           data-en="Patient Login" data-hi="मरीज़ लॉगिन">Patient Login</a>
+    </div>
+</header>
+
+<div class="app-container">
+    <aside class="sidebar">
+        <h3 data-en="MAIN MENU" data-hi="मुख्य मेन्यू">MAIN MENU</h3>
+
+        <a href="../index.html" class="nav-link">
+            <span>🏠</span>
+            <span data-en="Dashboard" data-hi="डैशबोर्ड">Dashboard</span>
+        </a>
+
+        <a href="healthcare.html" class="nav-link">
+            <span>🏥</span>
+            <span data-en="Find Healthcare" data-hi="अस्पताल खोजें">Find Healthcare</span>
+        </a>
+
+        <a href="medical-camps.html" class="nav-link">
+            <span>⛑️</span>
+            <span data-en="Medical Camps" data-hi="मेडिकल कैंप">Medical Camps</span>
+        </a>
+
+        <a href="health-awareness.html" class="nav-link">
+            <span>📢</span>
+            <span data-en="Health Awareness" data-hi="स्वास्थ्य जागरूकता">Health Awareness</span>
+        </a>
+
+        <a href="contact-provider.html" class="nav-link active">
+            <span>💬</span>
+            <span data-en="Contact Provider"
+                  data-hi="स्वास्थ्य सेवा प्रदाता से संपर्क">Contact Provider</span>
+        </a>
+
+        <div class="sidebar-bottom">
+            <a href="admin-login.html" class="nav-link">
+                <span>🔐</span>
+                <span data-en="Admin Login" data-hi="एडमिन लॉगिन">Admin Login</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="contact-page">
+            <a href="../index.html" class="back-dashboard"
+               data-en="← Back to Dashboard"
+               data-hi="← डैशबोर्ड पर वापस जाएँ">← Back to Dashboard</a>
+
+            <section class="contact-hero">
+                <p>SEHATSETU SUPPORT</p>
+                <h1 data-en="Contact a Healthcare Provider"
+                    data-hi="स्वास्थ्य सेवा प्रदाता से संपर्क करें">
+                    Contact a Healthcare Provider
+                </h1>
+                <p data-en="Send your enquiry or request help finding the right healthcare service."
+                   data-hi="अपनी पूछताछ भेजें या सही स्वास्थ्य सेवा खोजने में सहायता माँगें।">
+                    Send your enquiry or request help finding the right healthcare service.
+                </p>
+            </section>
+
+            <div class="contact-layout">
+                <section class="contact-card">
+                    <h2 data-en="Send an Enquiry" data-hi="पूछताछ भेजें">
+                        Send an Enquiry
+                    </h2>
+
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="fullName" data-en="Full Name" data-hi="पूरा नाम">
+                                Full Name
+                            </label>
+                            <input type="text" id="fullName" name="full_name"
+                                   autocomplete="name" maxlength="150" required
+                                   placeholder="Enter your full name"
+                                   data-placeholder-en="Enter your full name"
+                                   data-placeholder-hi="अपना पूरा नाम लिखें">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" data-en="Email Address" data-hi="ईमेल पता">
+                                Email Address
+                            </label>
+                            <input type="email" id="email" name="email"
+                                   autocomplete="email" maxlength="150" required
+                                   placeholder="you@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" data-en="Phone Number (Optional)"
+                                   data-hi="फ़ोन नंबर (वैकल्पिक)">
+                                Phone Number (Optional)
+                            </label>
+                            <input type="tel" id="phone" name="phone"
+                                   autocomplete="tel" maxlength="20"
+                                   placeholder="Enter your phone number"
+                                   data-placeholder-en="Enter your phone number"
+                                   data-placeholder-hi="अपना फ़ोन नंबर लिखें">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="enquiryType" data-en="Enquiry Type"
+                                   data-hi="पूछताछ का प्रकार">Enquiry Type</label>
+                            <select id="enquiryType" name="enquiry_type" required>
+                                <option value="" data-en="Select an option"
+                                        data-hi="एक विकल्प चुनें">Select an option</option>
+                                <option value="hospital" data-en="Finding a hospital or clinic"
+                                        data-hi="अस्पताल या क्लीनिक खोजना">
+                                    Finding a hospital or clinic
+                                </option>
+                                <option value="doctor" data-en="Finding a doctor"
+                                        data-hi="डॉक्टर खोजना">Finding a doctor</option>
+                                <option value="camp" data-en="Medical camp information"
+                                        data-hi="मेडिकल कैंप की जानकारी">
+                                    Medical camp information
+                                </option>
+                                <option value="general" data-en="General enquiry"
+                                        data-hi="सामान्य पूछताछ">General enquiry</option>
+                                <option value="other" data-en="Other"
+                                        data-hi="अन्य">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" data-en="Your Message" data-hi="आपका संदेश">
+                                Your Message
+                            </label>
+                            <textarea id="message" name="message" maxlength="5000"
+                                      required placeholder="Tell us how we can help..."
+                                      data-placeholder-en="Tell us how we can help..."
+                                      data-placeholder-hi="बताएँ कि हम आपकी कैसे मदद कर सकते हैं..."></textarea>
+                        </div>
+
+                        <button type="submit" id="submitBtn" class="submit-btn"
+                                data-en="Submit Enquiry" data-hi="पूछताछ भेजें">
+                            Submit Enquiry
+                        </button>
+
+                        <div id="formMessage" class="form-message"
+                             role="status" aria-live="polite"></div>
+                    </form>
+                </section>
+
+                <aside class="contact-info-card">
+                    <h2 data-en="How We Can Help" data-hi="हम कैसे मदद कर सकते हैं">
+                        How We Can Help
+                    </h2>
+
+                    <div class="info-item">
+                        <h3 data-en="🏥 Finding Healthcare" data-hi="🏥 स्वास्थ्य सेवा खोजें">
+                            🏥 Finding Healthcare
+                        </h3>
+                        <p data-en="Get guidance on finding hospitals, clinics and healthcare facilities."
+                           data-hi="अस्पताल, क्लीनिक और अन्य स्वास्थ्य सुविधाएँ खोजने में सहायता प्राप्त करें।">
+                            Get guidance on finding hospitals, clinics and healthcare facilities.
+                        </p>
+                    </div>
+
+                    <div class="info-item">
+                        <h3 data-en="⛑️ Medical Camps" data-hi="⛑️ मेडिकल कैंप">⛑️ Medical Camps</h3>
+                        <p data-en="Ask about community medical camps and health screening events."
+                           data-hi="सामुदायिक मेडिकल कैंप और स्वास्थ्य जाँच कार्यक्रमों के बारे में जानकारी प्राप्त करें।">
+                            Ask about community medical camps and health screening events.
+                        </p>
+                    </div>
+
+                    <div class="info-item">
+                        <h3 data-en="📋 General Enquiries" data-hi="📋 सामान्य पूछताछ">
+                            📋 General Enquiries
+                        </h3>
+                        <p data-en="Send questions about using SehatSetu and its healthcare services."
+                           data-hi="SehatSetu और इसकी स्वास्थ्य सेवाओं का उपयोग करने से जुड़े सवाल पूछें।">
+                            Send questions about using SehatSetu and its healthcare services.
+                        </p>
+                    </div>
+
+                    <div class="notice">
+                        <strong data-en="Important:" data-hi="महत्वपूर्ण:">Important:</strong>
+                        <span data-en="Do not enter passwords or sensitive medical details. For emergencies, contact local emergency services."
+                              data-hi="यहाँ पासवर्ड या संवेदनशील चिकित्सा जानकारी न लिखें। आपात स्थिति में स्थानीय आपातकालीन सेवाओं से संपर्क करें।">
+                            Do not enter passwords or sensitive medical details. For emergencies, contact local emergency services.
+                        </span>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="../js/script.js"></script>
+<script>
+    const contactForm = document.getElementById("contactForm");
+    const formMessage = document.getElementById("formMessage");
+    const submitBtn = document.getElementById("submitBtn");
+
+    function contactIsHindi() {
+        return document.documentElement.lang === "hi";
+    }
+
+    function setFormMessage(message, type) {
+        formMessage.textContent = message;
+        formMessage.className = "form-message " + type;
+    }
+
+    contactForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        if (!contactForm.reportValidity()) return;
+
+        const isHindi = contactIsHindi();
+        const payload = {
+            full_name: document.getElementById("fullName").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            phone: document.getElementById("phone").value.trim(),
+            enquiry_type: document.getElementById("enquiryType").value,
+            message: document.getElementById("message").value.trim()
+        };
+
+        if (!payload.full_name || !payload.email ||
+            !payload.enquiry_type || !payload.message) {
+            setFormMessage(
+                isHindi ? "कृपया सभी आवश्यक जानकारी भरें।"
+                        : "Please complete all required fields.",
+                "error"
+            );
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = isHindi ? "भेजा जा रहा है..." : "Submitting...";
+        formMessage.className = "form-message";
+        formMessage.style.display = "none";
+
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                credentials: "same-origin",
+                body: JSON.stringify(payload)
+            });
+
+            let result = {};
+            try {
+                result = await response.json();
+            } catch (error) {
+                result = {};
+            }
+
+            if (!response.ok || result.ok === false) {
+                throw new Error(result.message || (
+                    isHindi
+                        ? "पूछताछ भेजी नहीं जा सकी। कृपया दोबारा प्रयास करें।"
+                        : "The enquiry could not be submitted. Please try again."
+                ));
+            }
+
+            setFormMessage(
+                result.message || (
+                    isHindi
+                        ? "आपकी पूछताछ सफलतापूर्वक भेज दी गई।"
+                        : "Your enquiry was submitted successfully."
+                ),
+                "success"
+            );
+
+            contactForm.reset();
+        } catch (error) {
+            console.error("Contact form submission failed:", error);
+            setFormMessage(
+                error.message || (
+                    isHindi
+                        ? "सर्वर से संपर्क नहीं हो सका। Flask server की जाँच करें।"
+                        : "Could not contact the server. Check that Flask is running."
+                ),
+                "error"
+            );
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = isHindi ? "पूछताछ भेजें" : "Submit Enquiry";
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SehatSetu | Healthcare for Everyone</title>
+
+    <!-- CSS File -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+
+        <a href="index.html" class="logo">
+            <span class="logo-icon">✚</span>
+            <span>SehatSetu</span>
+        </a>
+
+        <div class="header-actions">
+
+            <button id="languageBtn" class="language-btn"
+                    onclick="toggleLanguage()">
+                हिंदी
+            </button>
+
+            <a href="pages/patient-login.html"
+               class="login-btn"
+               data-en="Patient Login"
+               data-hi="मरीज़ लॉगिन">
+                Patient Login
+            </a>
+
+            <a href="pages/admin-login.html"
+            class="login-btn"
+            data-en="Admin Login"
+            data-hi="एडमिन लॉगिन">
+                Admin Login
+            </a>
+
+        </div>
+    </header>
+
+
+    <!-- Main Application Layout -->
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <h3 data-en="MAIN MENU" data-hi="मुख्य मेन्यू">
+                MAIN MENU
+            </h3>
+
+            <a href="index.html" class="nav-link active">
+                <span>🏠</span>
+                <span data-en="Dashboard" data-hi="डैशबोर्ड">
+                    Dashboard
+                </span>
+            </a>
+
+            <a href="pages/healthcare.html" class="nav-link">
+                <span>🏥</span>
+                <span data-en="Find Healthcare" data-hi="अस्पताल खोजें">
+                    Find Healthcare
+                </span>
+            </a>
+
+            <a href="pages/medical-camps.html" class="nav-link">
+                <span>⛑️</span>
+                <span data-en="Medical Camps" data-hi="मेडिकल कैंप">
+                    Medical Camps
+                </span>
+            </a>
+
+            <a href="pages/health-awareness.html" class="nav-link">
+                <span>📢</span>
+                <span data-en="Health Awareness"
+                      data-hi="स्वास्थ्य जागरूकता">
+                    Health Awareness
+                </span>
+            </a>
+
+            <a href="pages/contact-provider.html" class="nav-link">
+                <span>💬</span>
+                <span data-en="Contact Provider"
+                      data-hi="स्वास्थ्य सेवा प्रदाता से संपर्क">
+                    Contact Provider
+                </span>
+            </a>
+
+            <div class="sidebar-bottom">
+
+                <a href="pages/admin-login.html" class="nav-link">
+                    <span>🔐</span>
+                    <span data-en="Admin Login" data-hi="एडमिन लॉगिन">
+                        Admin Login
+                    </span>
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- Dashboard Main Content -->
+        <main class="main-content">
+
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+
+                <p class="eyebrow"
+                   data-en="YOUR HEALTH, OUR PRIORITY"
+                   data-hi="आपका स्वास्थ्य, हमारी प्राथमिकता">
+                    YOUR HEALTH, OUR PRIORITY
+                </p>
+
+                <h1 data-en="Welcome to SehatSetu"
+                    data-hi="सेहतसेतु में आपका स्वागत है">
+                    Welcome to SehatSetu
+                </h1>
+
+                <p data-en="Connecting you with better healthcare services."
+                   data-hi="आपको बेहतर स्वास्थ्य सेवाओं से जोड़ना हमारा उद्देश्य है।">
+                    Connecting you with better healthcare services.
+                </p>
+
+            </section>
+            
+            
+            <!-- At a Glance Section -->
+            <section class="glance-section">
+
+                <div class="section-heading">
+                    <h2 data-en="At a Glance" data-hi="एक नज़र में">
+                        At a Glance
+                    </h2>
+
+                    <p data-en="Your healthcare overview"
+                    data-hi="आपकी स्वास्थ्य सेवाओं की संक्षिप्त जानकारी">
+                        Your healthcare overview
+                    </p>
+                </div>
+
+                <div class="glance-grid">
+
+                    <div class="glance-card">
+                        <div class="glance-icon">🏥</div>
+                        <div>
+                            <h3 id="glanceFacilities">12+</h3>
+                            <p data-en="Healthcare Facilities"
+                            data-hi="स्वास्थ्य केंद्र">
+                                Healthcare Facilities
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="glance-card">
+                        <div class="glance-icon">⛑️</div>
+                        <div>
+                            <h3 id="glanceCamps">5</h3>
+                            <p data-en="Upcoming Medical Camps"
+                            data-hi="आगामी मेडिकल कैंप">
+                                Upcoming Medical Camps
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="glance-card">
+                        <div class="glance-icon">📢</div>
+                        <div>
+                            <h3 id="glanceArticles">10+</h3>
+                            <p data-en="Health Awareness Articles"
+                            data-hi="स्वास्थ्य जागरूकता लेख">
+                                Health Awareness Articles
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="glance-card">
+                        <div class="glance-icon">💬</div>
+                        <div>
+                            <h3 id="glanceEnquiries">0</h3>
+                            <p data-en="My Enquiries"
+                            data-hi="मेरी पूछताछ">
+                                My Enquiries
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+            <!-- Healthcare Services -->
+            <section class="services-section">
+
+                <div class="section-heading">
+
+                    <h2 data-en="Our Healthcare Services"
+                        data-hi="हमारी स्वास्थ्य सेवाएँ">
+                        Our Healthcare Services
+                    </h2>
+
+                    <p data-en="Choose a service to get started."
+                       data-hi="शुरू करने के लिए कोई सेवा चुनें।">
+                        Choose a service to get started.
+                    </p>
+
+                </div>
+
+
+                <!-- Four Service Cards -->
+                <div class="services-grid">
+
+                    <!-- Service 1 -->
+                    <a href="pages/healthcare.html"
+                       class="service-card">
+
+                        <div class="service-icon">🏥</div>
+
+                        <h3 data-en="Find Healthcare"
+                            data-hi="अस्पताल और डॉक्टर खोजें">
+                            Find Healthcare
+                        </h3>
+
+                        <p data-en="Find hospitals, clinics and healthcare facilities."
+                           data-hi="अस्पताल, क्लिनिक और स्वास्थ्य केंद्र खोजें।">
+                            Find hospitals, clinics and healthcare facilities.
+                        </p>
+
+                        <span class="card-link"
+                              data-en="Explore Services →"
+                              data-hi="सेवाएँ देखें →">
+                            Explore Services →
+                        </span>
+
+                    </a>
+
+
+                    <!-- Service 2 -->
+                    <a href="pages/medical-camps.html"
+                       class="service-card">
+
+                        <div class="service-icon">⛑️</div>
+
+                        <h3 data-en="Medical Camps"
+                            data-hi="मेडिकल कैंप">
+                            Medical Camps
+                        </h3>
+
+                        <p data-en="Discover upcoming medical camps and registration details."
+                           data-hi="आने वाले मेडिकल कैंप और पंजीकरण की जानकारी पाएँ।">
+                            Discover upcoming medical camps and registration details.
+                        </p>
+
+                        <span class="card-link"
+                              data-en="Find Camps →"
+                              data-hi="कैंप खोजें →">
+                            Find Camps →
+                        </span>
+
+                    </a>
+
+
+                    <!-- Service 3 -->
+                    <a href="pages/health-awareness.html"
+                       class="service-card">
+
+                        <div class="service-icon">📢</div>
+
+                        <h3 data-en="Health Awareness"
+                            data-hi="स्वास्थ्य जागरूकता">
+                            Health Awareness
+                        </h3>
+
+                        <p data-en="Read health articles, wellness tips and awareness events."
+                           data-hi="स्वास्थ्य लेख, सेहत के सुझाव और जागरूकता कार्यक्रम देखें।">
+                            Read health articles, wellness tips and awareness events.
+                        </p>
+
+                        <span class="card-link"
+                              data-en="Learn More →"
+                              data-hi="और जानें →">
+                            Learn More →
+                        </span>
+
+                    </a>
+
+
+                    <!-- Service 4 -->
+                    <a href="pages/contact-provider.html"
+                       class="service-card">
+
+                        <div class="service-icon">💬</div>
+
+                        <h3 data-en="Contact Provider"
+                            data-hi="स्वास्थ्य सेवा प्रदाता से संपर्क">
+                            Contact Provider
+                        </h3>
+
+                        <p data-en="Send an enquiry to a healthcare facility or service provider."
+                           data-hi="अस्पताल या स्वास्थ्य सेवा प्रदाता से संपर्क करें।">
+                            Send an enquiry to a healthcare facility or service provider.
+                        </p>
+
+                        <span class="card-link"
+                              data-en="Contact Now →"
+                              data-hi="संपर्क करें →">
+                            Contact Now →
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- Footer -->
+            <footer class="footer">
+
+                <p data-en="© 2026 SehatSetu. Healthcare for Everyone."
+                   data-hi="© 2026 सेहतसेतु। सभी के लिए स्वास्थ्य सेवाएँ।">
+                    © 2026 SehatSetu. Healthcare for Everyone.
+                </p>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <!-- JavaScript File -->
+    <script src="js/script.js"></script>
+
+    <script>
+    async function loadDashboardSummary() {
+        try {
+            const response = await fetch("/api/dashboard-summary", {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                },
+                credentials: "same-origin"
+            });
+
+            if (!response.ok) {
+                document.getElementById("glanceFacilities").textContent = "0";
+                document.getElementById("glanceCamps").textContent = "0";
+                document.getElementById("glanceArticles").textContent = "0";
+                document.getElementById("glanceEnquiries").textContent = "0";
+
+                throw new Error("Dashboard summary could not be loaded.");
+            }
+
+            const data = await response.json();
+
+            if (!data.ok) {
+                throw new Error("Dashboard summary API returned an error.");
+            }
+
+            document.getElementById("glanceFacilities").textContent =
+                data.facilities;
+
+            document.getElementById("glanceCamps").textContent =
+                data.camps;
+
+            document.getElementById("glanceArticles").textContent =
+                data.articles;
+
+            document.getElementById("glanceEnquiries").textContent =
+                data.enquiries;
+
+        } catch (error) {
+            console.error("Dashboard summary error:", error);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        loadDashboardSummary();
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Awareness | SehatSetu</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+
+        .back-dashboard-wrapper {
+            margin: 0 0 18px;
+        }
+
+        .back-dashboard-link {
+            display: inline-block;
+            color: #17652b;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-dashboard-link:hover {
+            text-decoration: none;
+            color: #218838;
+        }
+
+        /* Health Awareness page-specific styles only */
+        .awareness-container {
+            width: 100%;
+            max-width: 1250px;
+            margin: 0 auto;
+        }
+
+        .awareness-hero {
+            padding: 30px;
+            background: linear-gradient(120deg, #e4f5e7, #f8fcf8);
+            border: 1px solid #d9eedc;
+            border-radius: 18px;
+            margin-bottom: 28px;
+        }
+
+        .awareness-hero h1 {
+            color: #17652b;
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .awareness-hero p {
+            max-width: 850px;
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .awareness-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .awareness-controls input,
+        .awareness-controls select {
+            flex: 1;
+            min-width: 220px;
+            padding: 12px 14px;
+            font: inherit;
+            color: #243b2b;
+            background: #fff;
+            border: 1px solid #d5e4d8;
+            border-radius: 9px;
+        }
+
+        .awareness-controls input:focus,
+        .awareness-controls select:focus {
+            outline: 2px solid #218838;
+            outline-offset: 2px;
+        }
+
+        .awareness-section {
+            margin: 30px 0;
+        }
+
+        .awareness-section h2 {
+            font-size: 23px;
+            color: #17652b;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #d9e9dc;
+        }
+
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .article-card {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 23px;
+            background: #fff;
+            border: 1px solid #e0ebe2;
+            border-radius: 14px;
+            box-shadow: 0 3px 12px rgba(28, 92, 43, 0.04);
+        }
+
+        .article-card h3 {
+            color: #17652b;
+            font-size: 18px;
+            margin: 12px 0 8px;
+        }
+
+        .article-card > p {
+            color: #526257;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .article-tag {
+            display: inline-block;
+            color: #17652b;
+            background: #eaf6ec;
+            border-radius: 20px;
+            padding: 5px 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .read-button {
+            margin-top: auto;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            background: #218838;
+            color: #fff;
+            font: inherit;
+            font-size: 14px;
+        }
+
+        .read-button:hover {
+            background: #17652b;
+        }
+
+        .article-details {
+            display: none;
+            width: 100%;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid #e0ebe2;
+            overflow-wrap: anywhere;
+        }
+
+        .article-details.open {
+            display: block;
+        }
+
+        .article-details h4 {
+            margin: 8px 0;
+        }
+
+        .article-details ul {
+            padding-left: 21px;
+            margin: 10px 0;
+        }
+
+        .article-details li {
+            margin-bottom: 9px;
+            line-height: 1.65;
+        }
+
+        .article-details p {
+            margin-top: 12px;
+            line-height: 1.7;
+        }
+
+        .reference-link {
+            color: #17652b;
+            font-weight: bold;
+            text-decoration: underline;
+            overflow-wrap: anywhere;
+        }
+
+        .health-notice {
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 5px solid #e4a11b;
+            border-radius: 8px;
+            background: #fff8e6;
+        }
+
+        .health-notice h2 {
+            margin-bottom: 10px;
+        }
+
+        .health-notice p {
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+
+        .resources-list {
+            padding-left: 22px;
+        }
+
+        .resources-list li {
+            margin: 12px 0;
+            overflow-wrap: anywhere;
+        }
+
+        .source-note {
+            color: #718078;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        .results-count {
+            margin: 10px 0;
+            color: #526257;
+            font-size: 14px;
+        }
+
+        .no-results {
+            display: none;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            background: #fff8e6;
+        }
+
+        .article-card[hidden],
+        .awareness-section[hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 900px) {
+            .article-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .awareness-hero {
+                padding: 24px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .awareness-hero {
+                padding: 20px;
+            }
+
+            .awareness-hero h1 {
+                font-size: 25px;
+            }
+
+            .awareness-section h2 {
+                font-size: 20px;
+            }
+
+            .article-card {
+                padding: 18px;
+            }
+
+            .awareness-controls input,
+            .awareness-controls select {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Same header structure as Dashboard -->
+    <header class="header">
+        <a href="../index.html" class="logo">
+            <span class="logo-icon">✚</span>
+            <span>SehatSetu</span>
+        </a>
+
+        <div class="header-actions">
+            <button id="languageBtn" class="language-btn"
+                    onclick="toggleLanguage()">
+                हिंदी
+            </button>
+
+            <a href="patient-login.html"
+               class="login-btn"
+               data-en="Patient Login"
+               data-hi="मरीज़ लॉगिन">
+                Patient Login
+            </a>
+        </div>
+    </header>
+
+    <!-- Same app layout as Dashboard -->
+    <div class="app-container">
+
+        <aside class="sidebar">
+            <h3 data-en="MAIN MENU" data-hi="मुख्य मेन्यू">MAIN MENU</h3>
+
+            <a href="../index.html" class="nav-link">
+                <span>🏠</span>
+                <span data-en="Dashboard" data-hi="डैशबोर्ड">Dashboard</span>
+            </a>
+
+            <a href="healthcare.html" class="nav-link">
+                <span>🏥</span>
+                <span data-en="Find Healthcare" data-hi="अस्पताल खोजें">Find Healthcare</span>
+            </a>
+
+            <a href="medical-camps.html" class="nav-link">
+                <span>⛑️</span>
+                <span data-en="Medical Camps" data-hi="मेडिकल कैंप">Medical Camps</span>
+            </a>
+
+            <a href="health-awareness.html" class="nav-link active">
+                <span>📢</span>
+                <span data-en="Health Awareness" data-hi="स्वास्थ्य जागरूकता">Health Awareness</span>
+            </a>
+
+            <a href="contact-provider.html" class="nav-link">
+                <span>💬</span>
+                <span data-en="Contact Provider" data-hi="स्वास्थ्य सेवा प्रदाता से संपर्क">Contact Provider</span>
+            </a>
+
+            <div class="sidebar-bottom">
+                <a href="admin-login.html" class="nav-link">
+                    <span>🔐</span>
+                    <span data-en="Admin Login" data-hi="एडमिन लॉगिन">Admin Login</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="awareness-container">
+
+                <p class="back-dashboard-wrapper">
+                    <a href="../index.html" class="back-dashboard-link">
+                        ← Back to Dashboard 
+                    </a>
+                </p>
+
+                <section class="awareness-hero">
+                    <p class="eyebrow">SEHATSETU HEALTH LIBRARY</p>
+                    <h1 data-en="Health Awareness & Knowledge Centre"
+                        data-hi="स्वास्थ्य जागरूकता एवं जानकारी केंद्र">
+                        Health Awareness & Knowledge Centre
+                    </h1>
+                    <p data-en="Explore reliable educational information about women's health, menstrual cycles, reproductive health, pregnancy, nutrition, common diseases and prevention."
+                       data-hi="महिलाओं के स्वास्थ्य, मासिक धर्म, प्रजनन स्वास्थ्य, गर्भावस्था, पोषण, आम बीमारियों और बचाव के बारे में भरोसेमंद शैक्षिक जानकारी पढ़ें।">
+                        Explore reliable educational information about women's health,
+                        menstrual cycles, reproductive health, pregnancy, nutrition,
+                        common diseases and prevention.
+                    </p>
+                    <p><strong>Learn • Prevent • Stay Healthy</strong></p>
+                </section>
+
+                <section>
+                    <div class="section-heading">
+                        <h2>Explore Health Topics | स्वास्थ्य विषय खोजें</h2>
+                        <p>Search articles or filter them by category.</p>
+                    </div>
+
+                    <div class="awareness-controls">
+                        <input type="search"
+                               id="articleSearch"
+                               placeholder="Search articles or health topics..."
+                               aria-label="Search health articles">
+
+                        <select id="categoryFilter" aria-label="Filter by category">
+                            <option value="all">All Categories / सभी विषय</option>
+                            <option value="women">Women's Health / महिला स्वास्थ्य</option>
+                            <option value="menstrual">Menstrual Health / मासिक धर्म</option>
+                            <option value="reproductive">Reproductive Health / प्रजनन स्वास्थ्य</option>
+                            <option value="pregnancy">Pregnancy / गर्भावस्था</option>
+                            <option value="nutrition">Nutrition / पोषण</option>
+                            <option value="conditions">Health Conditions / बीमारियाँ</option>
+                            <option value="mental">Mental Health / मानसिक स्वास्थ्य</option>
+                            <option value="prevention">Disease Prevention / बीमारी से बचाव</option>
+                            <option value="firstaid">First Aid / प्राथमिक उपचार</option>
+                        </select>
+                    </div>
+
+                    <p id="resultsCount" class="results-count" aria-live="polite"></p>
+                    <div class="section-heading">
+                        <h2>Health Library | स्वास्थ्य पुस्तकालय</h2>
+                        <p>Explore health articles from our health library.</p>
+                    </div>
+                    <div id="databaseArticles" class="database-articles"></div>
+                    <p id="databaseArticlesError" class="no-results" hidden>
+                        Unable to load articles from the database. Please try again later.
+                    </p>
+                    <p id="noResults" class="no-results">
+                        No articles found. Try another search or category.
+                        / कोई लेख नहीं मिला। दूसरा विषय चुनकर देखें।
+                    </p>
+                </section>
+
+                <div id="articleCollection">
+
+                    <!-- WOMEN'S HEALTH -->
+                    <section class="awareness-section">
+                        <h2>🌸 Women's Health | महिलाओं का स्वास्थ्य</h2>
+
+                        <div class="section-heading">
+                            <h2>Featured Health Articles | प्रमुख स्वास्थ्य लेख</h2>
+                            <p>Explore selected health articles and trusted health information.</p>
+                        </div>
+
+                        <div class="article-grid">
+
+                            <article class="article-card" data-category="women">
+                                
+                                <span class="article-tag" data-en="Women's Health" data-hi="महिलाओं का स्वास्थ्य">Women's Health</span>
+                                <h3 data-en="Women's Health Through Every Life Stage" data-hi="जीवन के हर चरण में महिलाओं का स्वास्थ्य">Women's Health Through Every Life Stage</h3>
+                                <p data-en="Understand health needs from adolescence to menopause and older age." data-hi="किशोरावस्था से मेनोपॉज़ और बढ़ती उम्र तक स्वास्थ्य संबंधी ज़रूरतों को समझें।">Understand health needs from adolescence to menopause and older age.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Adolescents may need guidance about puberty, periods, nutrition and emotional changes.</li>
+                                        <li>Adults should pay attention to nutrition, physical activity and routine check-ups.</li>
+                                        <li>Pregnancy requires appropriate antenatal care and advice from qualified healthcare professionals.</li>
+                                        <li>Menopause can cause changes in periods, sleep, mood and bone health.</li>
+                                        <li>Preventive care depends on age, symptoms and personal risk.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> किशोरावस्था से मेनोपॉज़ तक महिलाओं की स्वास्थ्य संबंधी ज़रूरतें बदलती रहती हैं। नियमित जाँच और सही जानकारी मददगार होती हैं।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.who.int/health-topics/women-s-health" target="_blank" rel="noopener noreferrer">WHO — Women's Health</a></p>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="women">
+                                
+                                <span class="article-tag" data-en="Breast Health" data-hi="स्तन स्वास्थ्य">Breast Health</span>
+                                <h3 data-en="Breast Health and Warning Signs" data-hi="स्तन स्वास्थ्य और चेतावनी के संकेत">Breast Health and Warning Signs</h3>
+                                <p data-en="Learn about breast changes and when to seek medical advice." data-hi="स्तनों में होने वाले बदलावों और डॉक्टर से सलाह लेने के सही समय के बारे में जानें।">Learn about breast changes and when to seek medical advice.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Seek assessment for a new lump, unusual nipple discharge, skin dimpling or persistent changes in shape.</li>
+                                        <li>Many breast changes are not cancer, but new changes should be assessed.</li>
+                                        <li>Ask a healthcare professional about screening appropriate to your age and risk.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> स्तन में नई गाँठ, त्वचा में बदलाव या असामान्य स्राव होने पर जाँच करवाएँ।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.who.int/news-room/fact-sheets/detail/breast-cancer" target="_blank" rel="noopener noreferrer">WHO — Breast Cancer</a></p>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="women">
+                                
+                                <span class="article-tag" data-en="Women's Nutrition" data-hi="महिलाओं का पोषण">Women's Nutrition</span>
+                                <h3 data-en="Anemia and Iron Deficiency" data-hi="एनीमिया और आयरन की कमी">Anemia and Iron Deficiency</h3>
+                                <p data-en="Learn about tiredness, iron-rich foods and when testing may be needed." data-hi="थकान, आयरन से भरपूर खाद्य पदार्थों और जाँच की आवश्यकता के बारे में जानें।">Learn about tiredness, iron-rich foods and when testing may be needed.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Anemia may cause tiredness, weakness, dizziness or breathlessness.</li>
+                                        <li>Heavy menstrual bleeding, low iron intake and other conditions may contribute.</li>
+                                        <li>Iron-rich foods include lentils, beans, leafy greens and fortified foods.</li>
+                                        <li>A blood test may be needed to confirm anemia. Do not start high-dose supplements without advice.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> लगातार थकान, चक्कर या साँस फूलने पर जाँच करवाएँ। केवल लक्षणों से एनीमिया की पुष्टि नहीं होती।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.who.int/health-topics/anaemia" target="_blank" rel="noopener noreferrer">WHO — Anaemia</a></p>
+                                </div>
+                            </article>
+
+                        </div>
+                    </section>
+
+                    <!-- MENSTRUAL HEALTH -->
+                    <section class="awareness-section">
+                        <h2>🩸 Menstrual Health | मासिक धर्म स्वास्थ्य</h2>
+
+                        <div class="article-grid">
+
+                            <article class="article-card" data-category="menstrual">
+                                <span class="article-tag" data-en="Menstrual Cycle" data-hi="मासिक धर्म चक्र">Menstrual Cycle</span>
+                                <h3 data-en="Understanding the Menstrual Cycle" data-hi="मासिक धर्म चक्र को समझें">Understanding the Menstrual Cycle</h3>
+                                <p data-en="Learn about periods, hormones, ovulation and cycle variation." data-hi="पीरियड्स, हार्मोन, ओव्यूलेशन और मासिक चक्र में होने वाले बदलावों के बारे में जानें।">Learn about periods, hormones, ovulation and cycle variation.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Day 1 of the cycle is the first day of menstrual bleeding.</li>
+                                        <li>The cycle involves menstrual bleeding, follicular development, ovulation and the luteal phase.</li>
+                                        <li>Cycle length varies and can change with age, stress, illness and hormonal conditions.</li>
+                                        <li>Tracking period dates, bleeding and pain can help identify changes.</li>
+                                        <li>Repeatedly missed periods or significant changes deserve medical advice.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> मासिक चक्र का पहला दिन पीरियड्स शुरू होने का दिन है। बार-बार अनियमितता होने पर जाँच करवाएँ।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.nhs.uk/conditions/periods/" target="_blank" rel="noopener noreferrer">NHS — Periods</a></p>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="menstrual">
+                                <span class="article-tag" data-en="Period Care" data-hi="पीरियड्स की देखभाल">Period Care</span>
+                                <h3 data-en="Period Pain and PMS" data-hi="पीरियड्स में दर्द और PMS">Period Pain and PMS</h3>
+                                <p data-en="Understand cramps, mood changes and ways to manage common symptoms." data-hi="पीरियड्स में ऐंठन, मूड में बदलाव और सामान्य लक्षणों को संभालने के तरीकों को समझें।">Understand cramps, mood changes and ways to manage common symptoms.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Symptoms may include cramps, bloating, breast tenderness, headaches and mood changes.</li>
+                                        <li>Gentle movement, rest and a warm compress may help some people.</li>
+                                        <li>Severe, worsening or persistent pain needs medical assessment.</li>
+                                        <li>Sudden severe pain or pain with fainting requires urgent care.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> बहुत तेज़ दर्द या रोज़मर्रा के काम में रुकावट होने पर डॉक्टर से सलाह लें।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.nhs.uk/conditions/period-pain/" target="_blank" rel="noopener noreferrer">NHS — Period Pain</a></p>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="menstrual">
+                                <span class="article-tag" data-en="Menstrual Hygiene" data-hi="मासिक धर्म की स्वच्छता">Menstrual Hygiene</span>
+                                <h3 data-en="Period Hygiene and Product Safety" data-hi="पीरियड्स में स्वच्छता और उत्पादों की सुरक्षा">Period Hygiene and Product Safety</h3>
+                                <p data-en="Learn about sanitary pads, menstrual cups and safe hygiene practices." data-hi="सैनिटरी पैड, मेंस्ट्रुअल कप और स्वच्छता के सुरक्षित तरीकों के बारे में जानें।">Learn about sanitary pads, menstrual cups and safe hygiene practices.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Choose menstrual products that are suitable, comfortable and affordable.</li>
+                                        <li>Change products according to product instructions and your flow.</li>
+                                        <li>Wash your hands before and after changing products.</li>
+                                        <li>Clean reusable products according to their instructions.</li>
+                                        <li>Avoid harsh or scented cleansers that irritate the genital area.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> पीरियड्स के दौरान साफ़-सफाई रखें, हाथ धोएँ और अपनी सुविधा के अनुसार सुरक्षित उत्पाद चुनें।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.unicef.org/wash/menstrual-hygiene" target="_blank" rel="noopener noreferrer">UNICEF — Menstrual Hygiene</a></p>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="menstrual">
+                                <span class="article-tag" data-en="When to Seek Care" data-hi="डॉक्टर से कब मिलें">When to Seek Care</span>
+                                <h3 data-en="Heavy or Missed Periods" data-hi="ज़्यादा या रुके हुए पीरियड्स">Heavy or Missed Periods</h3>
+                                <p data-en="Understand changes in bleeding and when medical advice is important." data-hi="मासिक रक्तस्राव में बदलाव और डॉक्टर की सलाह कब ज़रूरी है, यह समझें।">Understand changes in bleeding and when medical advice is important.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Heavy bleeding can have several causes, including hormonal changes and other conditions.</li>
+                                        <li>Missed periods may be associated with pregnancy, stress, weight changes or hormonal conditions.</li>
+                                        <li>If pregnancy is possible, consider a pregnancy test.</li>
+                                        <li>Very heavy bleeding with dizziness, fainting or severe weakness needs urgent assessment.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> पीरियड्स मिस होने या बहुत अधिक रक्तस्राव के कई कारण हो सकते हैं। गंभीर लक्षण हों तो तुरंत चिकित्सा सहायता लें।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.nhs.uk/conditions/periods/" target="_blank" rel="noopener noreferrer">NHS — Periods</a></p>
+                                </div>
+                            </article>
+
+                        </div>
+                    </section>
+
+                    <!-- REPRODUCTIVE HEALTH -->
+                    <section class="awareness-section">
+                        <h2>💗 Reproductive Health | प्रजनन स्वास्थ्य</h2>
+
+                        <div class="article-grid">
+
+                            <article class="article-card" data-category="reproductive">
+                                <span class="article-tag" data-en="Reproductive System" data-hi="प्रजनन तंत्र">Reproductive System</span>
+                                <h3 data-en="Understanding the Female Reproductive System" data-hi="महिला प्रजनन तंत्र को समझें">Understanding the Female Reproductive System</h3>
+                                <p data-en="Learn about the uterus, ovaries, fallopian tubes and their functions." data-hi="गर्भाशय, अंडाशय, फैलोपियन ट्यूब और उनके कार्यों के बारे में जानें।">Learn about the uterus, ovaries, fallopian tubes and their functions.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>The ovaries release eggs and produce hormones.</li>
+                                        <li>The fallopian tubes help transport an egg toward the uterus.</li>
+                                        <li>The uterus is where a pregnancy can develop.</li>
+                                        <li>Persistent pelvic pain, unusual discharge or unexpected bleeding should be discussed with a healthcare professional.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> अंडाशय, फैलोपियन ट्यूब और गर्भाशय प्रजनन तंत्र के महत्वपूर्ण अंग हैं। लगातार दर्द या असामान्य रक्तस्राव की जाँच करवाएँ।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.nhs.uk/conditions/" target="_blank" rel="noopener noreferrer">NHS — Health Conditions</a></p>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="reproductive">
+                                <span class="article-tag" data-en="Fertility" data-hi="प्रजनन क्षमता">Fertility</span>
+                                <h3 data-en="Ovulation and Fertility Basics" data-hi="ओव्यूलेशन और प्रजनन क्षमता की मूल बातें">Ovulation and Fertility Basics</h3>
+                                <p data-en="Understand ovulation and why fertile days vary from person to person." data-hi="ओव्यूलेशन और अलग-अलग लोगों में उपजाऊ दिनों के बदलने के कारणों को समझें।">Understand ovulation and why fertile days vary from person to person.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Ovulation is the release of an egg from an ovary.</li>
+                                        <li>The timing can vary, even for people with usually regular periods.</li>
+                                        <li>Calendar estimates and apps cannot guarantee the exact day of ovulation.</li>
+                                        <li>Seek professional advice for fertility concerns.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> ओव्यूलेशन का समय हर चक्र में बदल सकता है। केवल कैलेंडर या ऐप के अनुमान पर गर्भधारण रोकने के लिए निर्भर न रहें।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.nhs.uk/conditions/periods/fertility-in-the-menstrual-cycle/" target="_blank" rel="noopener noreferrer">NHS — Fertility</a></p>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="reproductive">
+                                <span class="article-tag" data-en="Family Planning" data-hi="परिवार नियोजन">Family Planning</span>
+                                <h3 data-en="Contraception and Family Planning" data-hi="गर्भनिरोध और परिवार नियोजन">Contraception and Family Planning</h3>
+                                <p data-en="Explore general information about pregnancy prevention and informed choices." data-hi="गर्भधारण से बचाव और सोच-समझकर निर्णय लेने के बारे में सामान्य जानकारी प्राप्त करें।">Explore general information about pregnancy prevention and informed choices.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Options include condoms, oral contraceptives, intrauterine devices and implants, depending on availability and suitability.</li>
+                                        <li>Condoms can help reduce the risk of many sexually transmitted infections and pregnancy.</li>
+                                        <li>Methods have different benefits, risks and effectiveness.</li>
+                                        <li>A qualified healthcare professional can help identify an appropriate option.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> गर्भनिरोध के कई तरीके हैं। सही विकल्प व्यक्ति की ज़रूरतों और स्वास्थ्य पर निर्भर करता है।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.who.int/news-room/fact-sheets/detail/family-planning-contraception" target="_blank" rel="noopener noreferrer">WHO — Family Planning</a></p>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="reproductive">
+                                <span class="article-tag" data-en="Sexual Health" data-hi="यौन स्वास्थ्य">Sexual Health</span>
+                                <h3 data-en="Sexual Health and STI Prevention" data-hi="यौन स्वास्थ्य और STI से बचाव">Sexual Health and STI Prevention</h3>
+                                <p data-en="Learn about consent, sexually transmitted infections and confidential healthcare." data-hi="सहमति, यौन संचारित संक्रमणों और गोपनीय स्वास्थ्य सेवाओं के बारे में जानें।">Learn about consent, sexually transmitted infections and confidential healthcare.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Consent must be freely given and can be withdrawn at any time.</li>
+                                        <li>Some sexually transmitted infections may not cause obvious symptoms.</li>
+                                        <li>Condoms, appropriate testing and timely treatment can reduce risks.</li>
+                                        <li>Seek advice from a healthcare professional about testing and treatment.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> कुछ यौन संक्रमणों में स्पष्ट लक्षण नहीं होते। ज़रूरत के अनुसार जाँच करवाएँ और सुरक्षित संबंधों की जानकारी लें।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.who.int/news-room/fact-sheets/detail/sexually-transmitted-infections-(stis)" target="_blank" rel="noopener noreferrer">WHO — STIs</a></p>
+                                </div>
+                            </article>
+
+                        </div>
+                    </section>
+
+                    <!-- HEALTH CONDITIONS -->
+                    <section class="awareness-section">
+                        <h2>🩺 PCOS, PCOD and Other Conditions</h2>
+
+                        <div class="article-grid">
+
+                            <article class="article-card" data-category="conditions women">
+                                <span class="article-tag" data-en="PCOS & PCOD" data-hi="PCOS और PCOD">PCOS & PCOD</span>
+                                <h3 data-en="PCOS and PCOD: What to Know" data-hi="PCOS और PCOD के बारे में जानें">PCOS and PCOD: What to Know</h3>
+                                <p data-en="Learn about common symptoms, diagnosis and treatment options for PCOS and PCOD." data-hi="PCOS और PCOD के सामान्य लक्षणों, जाँच और उपचार के विकल्पों के बारे में जानें।">Learn about common symptoms, diagnosis and treatment options for PCOS and PCOD.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>PCOS may affect periods, skin, hair growth and ovulation.</li>
+                                        <li>Symptoms may include irregular periods, acne or increased facial hair.</li>
+                                        <li>Similar symptoms can have other causes, so symptoms alone cannot confirm PCOS.</li>
+                                        <li>Diagnosis and management should be discussed with a qualified clinician.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> अनियमित पीरियड्स, मुहाँसे या चेहरे पर अधिक बाल कई कारणों से हो सकते हैं। PCOS की पुष्टि के लिए चिकित्सकीय जाँच ज़रूरी है।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.who.int/news-room/fact-sheets/detail/polycystic-ovary-syndrome" target="_blank" rel="noopener noreferrer">WHO — PCOS</a></p>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="conditions women">
+                                <span class="article-tag" data-en="Women's Health" data-hi="महिलाओं का स्वास्थ्य">Women's Health</span>
+                                <h3 data-en="Endometriosis" data-hi="एंडोमेट्रियोसिस">Endometriosis</h3>
+                                <p data-en="Understand common symptoms of endometriosis and when to seek medical advice." data-hi="एंडोमेट्रियोसिस के सामान्य लक्षणों और डॉक्टर से सलाह लेने के सही समय के बारे में जानें।">Understand common symptoms of endometriosis and when to seek medical advice.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Endometriosis occurs when tissue similar to the uterine lining grows outside the uterus.</li>
+                                        <li>Symptoms may include severe period pain, persistent pelvic pain or pain during sex.</li>
+                                        <li>Symptoms vary and can have other causes.</li>
+                                        <li>Seek medical advice if pain is severe, persistent or affects daily life.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> बहुत तेज़ पीरियड दर्द या लगातार पेल्विक दर्द को हमेशा सामान्य न मानें। डॉक्टर से जाँच करवाएँ।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.who.int/news-room/fact-sheets/detail/endometriosis" target="_blank" rel="noopener noreferrer">WHO — Endometriosis</a></p>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="conditions women">
+                                <span class="article-tag" data-en="Cancer Prevention" data-hi="कैंसर से बचाव">Cancer Prevention</span>
+                                <h3 data-en="Cervical Cancer and HPV" data-hi="सर्वाइकल कैंसर और HPV">Cervical Cancer and HPV</h3>
+                                <p data-en="Learn about HPV, cervical cancer screening and prevention, including vaccination." data-hi="HPV, सर्वाइकल कैंसर की जाँच और टीकाकरण सहित इससे बचाव के तरीकों के बारे में जानें।">Learn about HPV, cervical cancer screening and prevention, including vaccination.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Persistent infection with certain high-risk HPV types can cause cervical cancer.</li>
+                                        <li>HPV vaccination helps prevent infection from important cancer-causing types.</li>
+                                        <li>Screening recommendations depend on age and health guidance.</li>
+                                        <li>Unusual bleeding, including bleeding after sex, needs medical assessment.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> HPV टीकाकरण और सही समय पर स्क्रीनिंग सर्वाइकल कैंसर की रोकथाम में मदद कर सकते हैं।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.who.int/news-room/fact-sheets/detail/cervical-cancer" target="_blank" rel="noopener noreferrer">WHO — Cervical Cancer</a></p>
+                                </div>
+                            </article>
+
+                        </div>
+                    </section>
+
+                    <!-- PREGNANCY -->
+                    <section class="awareness-section">
+                        <h2>🤰 Pregnancy and Motherhood | गर्भावस्था और मातृत्व</h2>
+
+                        <div class="article-grid">
+
+                            <article class="article-card" data-category="pregnancy">
+                                <span class="article-tag" data-en="Pregnancy Care" data-hi="गर्भावस्था की देखभाल">Pregnancy Care</span>
+                                <h3 data-en="Healthy Pregnancy and Antenatal Care" data-hi="स्वस्थ गर्भावस्था और प्रसवपूर्व देखभाल">Healthy Pregnancy and Antenatal Care</h3>
+                                <p data-en="Learn about prenatal check-ups, healthy habits and warning signs during pregnancy." data-hi="गर्भावस्था के दौरान नियमित जाँच, स्वस्थ आदतों और चेतावनी के संकेतों के बारे में जानें।">Learn about prenatal check-ups, healthy habits and warning signs during pregnancy.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Arrange antenatal care early and attend recommended appointments.</li>
+                                        <li>Discuss supplements, vaccines, medicines and existing conditions with your clinician.</li>
+                                        <li>Eat a varied diet and follow advice about food safety.</li>
+                                        <li>Seek urgent care for heavy bleeding, severe abdominal pain, severe headache with vision changes or breathing difficulty.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> गर्भावस्था में नियमित जाँच करवाएँ। रक्तस्राव, तेज़ पेट दर्द या गंभीर लक्षण होने पर तुरंत चिकित्सा सहायता लें।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.who.int/health-topics/maternal-health" target="_blank" rel="noopener noreferrer">WHO — Maternal Health</a></p>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="pregnancy">
+                                <span class="article-tag" data-en="Postpartum Care" data-hi="प्रसव के बाद देखभाल">Postpartum Care</span>
+                                <h3 data-en="Recovery After Childbirth" data-hi="प्रसव के बाद रिकवरी">Recovery After Childbirth</h3>
+                                <p data-en="Learn about physical recovery, emotional well-being and warning signs after childbirth." data-hi="प्रसव के बाद शारीरिक रिकवरी, भावनात्मक स्वास्थ्य और चेतावनी के संकेतों के बारे में जानें।">Learn about physical recovery, emotional well-being and warning signs after childbirth.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Recovery takes time and needs rest, nutrition and follow-up care.</li>
+                                        <li>Seek medical care for heavy bleeding, fever, worsening pain, chest pain or breathing difficulty.</li>
+                                        <li>Persistent sadness, anxiety or difficulty coping deserve professional support.</li>
+                                        <li>Thoughts of self-harm require immediate help.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> प्रसव के बाद माँ के शारीरिक और मानसिक स्वास्थ्य दोनों की देखभाल ज़रूरी है। गंभीर लक्षण हों तो तुरंत मदद लें।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.who.int/health-topics/maternal-health" target="_blank" rel="noopener noreferrer">WHO — Maternal Health</a></p>
+                                </div>
+                            </article>
+
+                        </div>
+                    </section>
+
+                    <!-- NUTRITION -->
+                    <section class="awareness-section">
+                        <h2>🥗 Nutrition and Healthy Lifestyle | पोषण</h2>
+
+                        <div class="article-grid">
+
+                            <article class="article-card" data-category="nutrition">
+                                <span class="article-tag" data-en="Nutrition" data-hi="पोषण">Nutrition</span>
+                                <h3 data-en="Balanced Diet for Everyday Health" data-hi="रोज़मर्रा के स्वास्थ्य के लिए संतुलित आहार">Balanced Diet for Everyday Health</h3>
+                                <p data-en="Learn how fruits, vegetables, whole grains, protein and water support good health." data-hi="जानें कि फल, सब्ज़ियाँ, साबुत अनाज, प्रोटीन और पानी अच्छे स्वास्थ्य में कैसे मदद करते हैं।">Learn how fruits, vegetables, whole grains, protein and water support good health.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Include vegetables, fruits, whole grains, pulses and suitable protein sources.</li>
+                                        <li>Drink safe water regularly.</li>
+                                        <li>Limit excess salt, added sugar and highly processed foods.</li>
+                                        <li>Nutrition needs vary with age, pregnancy, activity and medical conditions.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> विविध और संतुलित आहार, पर्याप्त पानी और नियमित शारीरिक गतिविधि अच्छे स्वास्थ्य में मदद करते हैं।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer">WHO — Healthy Diet</a></p>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="nutrition">
+                                <span class="article-tag" data-en="Healthy Lifestyle" data-hi="स्वस्थ जीवनशैली">Healthy Lifestyle</span>
+                                <h3 data-en="Exercise, Sleep and Daily Habits" data-hi="व्यायाम, नींद और रोज़मर्रा की आदतें">Exercise, Sleep and Daily Habits</h3>
+                                <p data-en="Discover how regular movement, enough sleep and healthy routines support well-being." data-hi="जानें कि नियमित व्यायाम, पर्याप्त नींद और अच्छी दिनचर्या सेहत को कैसे बेहतर बनाते हैं।">Discover how regular movement, enough sleep and healthy routines support well-being.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Choose physical activities suited to your ability and health.</li>
+                                        <li>Break up long periods of sitting with movement.</li>
+                                        <li>Maintain a regular sleep routine.</li>
+                                        <li>Ask your clinician about exercise restrictions during pregnancy or illness.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> नियमित गतिविधि, पर्याप्त नींद और लंबे समय तक बैठे रहने से बचना स्वास्थ्य के लिए लाभदायक हो सकता है।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.who.int/news-room/fact-sheets/detail/physical-activity" target="_blank" rel="noopener noreferrer">WHO — Physical Activity</a></p>
+                                </div>
+                            </article>
+
+                        </div>
+                    </section>
+
+                    <!-- MENTAL HEALTH -->
+                    <section class="awareness-section">
+                        <h2>🧠 Mental Health | मानसिक स्वास्थ्य</h2>
+
+                        <div class="article-grid">
+                            <article class="article-card" data-category="mental">
+                                <span class="article-tag" data-en="Mental Health" data-hi="मानसिक स्वास्थ्य">Mental Health</span>
+                                <h3 data-en="Stress, Anxiety and Depression" data-hi="तनाव, चिंता और अवसाद">Stress, Anxiety and Depression</h3>
+                                <p data-en="Learn about common signs of emotional distress and when to seek professional support." data-hi="भावनात्मक परेशानी के सामान्य संकेतों और पेशेवर सहायता कब लेनी चाहिए, इसके बारे में जानें।">Learn about common signs of emotional distress and when to seek professional support.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Stress can affect sleep, mood and concentration.</li>
+                                        <li>Persistent sadness, loss of interest or excessive worry may need professional assessment.</li>
+                                        <li>Talking with a trusted person may help but does not replace treatment when needed.</li>
+                                        <li>If there is immediate risk of self-harm, seek emergency help.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> लगातार उदासी, घबराहट या रोज़मर्रा के काम करने में कठिनाई होने पर मानसिक स्वास्थ्य विशेषज्ञ से बात करें।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.who.int/health-topics/mental-health" target="_blank" rel="noopener noreferrer">WHO — Mental Health</a></p>
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+
+                    <!-- PREVENTION -->
+                    <section class="awareness-section">
+                        <h2>🛡️ Disease Prevention | बीमारी से बचाव</h2>
+
+                        <div class="article-grid">
+                            <article class="article-card" data-category="prevention">
+                                <span class="article-tag" data-en="Disease Prevention" data-hi="बीमारियों से बचाव">Disease Prevention</span>
+                                <h3 data-en="Dengue and Mosquito-Borne Illnesses" data-hi="डेंगू और मच्छरों से फैलने वाली बीमारियाँ">Dengue and Mosquito-Borne Illnesses</h3>
+                                <p data-en="Learn how to prevent mosquito bites, recognize warning signs and reduce breeding sites." data-hi="मच्छरों के काटने से बचाव, चेतावनी के संकेत पहचानने और मच्छरों के पनपने की जगहों को कम करने के तरीके जानें।">Learn how to prevent mosquito bites, recognize warning signs and reduce breeding sites.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Remove standing water from containers and surroundings.</li>
+                                        <li>Use suitable repellents, screens and protective clothing.</li>
+                                        <li>Severe abdominal pain, persistent vomiting, bleeding or unusual drowsiness with suspected dengue requires urgent care.</li>
+                                        <li>Avoid self-medicating; some medicines can increase bleeding risk in dengue.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> मच्छरों से बचाव करें और पानी जमा न होने दें। बुखार के साथ गंभीर लक्षण हों तो तुरंत चिकित्सा सहायता लें।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue" target="_blank" rel="noopener noreferrer">WHO — Dengue</a></p>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="prevention">
+                                <span class="article-tag" data-en="Preventive Care" data-hi="निवारक स्वास्थ्य देखभाल">Preventive Care</span>
+                                <h3 data-en="Vaccination and Preventive Check-ups" data-hi="टीकाकरण और नियमित स्वास्थ्य जाँच">Vaccination and Preventive Check-ups</h3>
+                                <p data-en="Understand how recommended vaccines and routine check-ups can help protect your health." data-hi="जानें कि सुझाए गए टीके और नियमित स्वास्थ्य जाँच आपकी सेहत की रक्षा करने में कैसे मदद कर सकते हैं।">Understand how recommended vaccines and routine check-ups can help protect your health.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Vaccines help protect against specific infectious diseases.</li>
+                                        <li>Recommendations differ by age, pregnancy and medical history.</li>
+                                        <li>Keep vaccination records where possible.</li>
+                                        <li>Screening tests depend on age, symptoms and individual risk.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> टीकाकरण और सही समय पर स्वास्थ्य जाँच बीमारी से बचाव में मदद कर सकते हैं।</p>
+                                    <p>Reference: <a class="reference-link" href="https://www.mohfw.gov.in/" target="_blank" rel="noopener noreferrer">Ministry of Health and Family Welfare, India</a></p>
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+
+                    <!-- FIRST AID -->
+                    <section class="awareness-section">
+                        <h2>🩹 First Aid and Medical Help | प्राथमिक उपचार</h2>
+
+                        <div class="article-grid">
+                            <article class="article-card" data-category="firstaid">
+                                <span class="article-tag" data-en="First Aid" data-hi="प्राथमिक उपचार">First Aid</span>
+                                <h3 data-en="Recognizing Medical Emergencies" data-hi="मेडिकल इमरजेंसी को पहचानना">Recognizing Medical Emergencies</h3>
+                                <p data-en="Learn to recognize emergency warning signs and when to seek immediate medical help." data-hi="इमरजेंसी के चेतावनी संकेतों को पहचानना और तुरंत चिकित्सा सहायता कब लेनी चाहिए, यह जानें।">Learn to recognize emergency warning signs and when to seek immediate medical help.</p>
+                                <button class="read-button" onclick="toggleArticle(this)" aria-expanded="false" data-en="Read More" data-hi="और पढ़ें">Read More</button>
+                                <div class="article-details">
+                                    <ul>
+                                        <li>Chest pain, severe breathing difficulty, sudden facial drooping, new weakness on one side or difficulty speaking can be emergencies.</li>
+                                        <li>Unconsciousness, heavy bleeding or a severe allergic reaction also needs urgent help.</li>
+                                        <li>Call local emergency services; in India, 112 is the national emergency number.</li>
+                                        <li>Do not delay emergency care while searching online.</li>
+                                    </ul>
+                                    <p><strong>हिंदी:</strong> सीने में तेज़ दर्द, साँस लेने में गंभीर कठिनाई, अचानक कमजोरी या बेहोशी होने पर तुरंत आपातकालीन सहायता लें। भारत में 112 पर कॉल किया जा सकता है।</p>
+                                    <p>Reference: <a class="reference-link" href="https://112.gov.in/" target="_blank" rel="noopener noreferrer">India — Emergency Response Support System</a></p>
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+
+                </div>
+
+                <section class="health-notice">
+                    <h2>⚠️ Important Health Notice | ज़रूरी सूचना</h2>
+                    <p>
+                        This page provides general health education, not a personal diagnosis or treatment plan.
+                        Consult a qualified healthcare professional for personal advice, persistent symptoms or
+                        questions about medicines.
+                    </p>
+                    <p>
+                        यह पेज सामान्य स्वास्थ्य जानकारी के लिए है, व्यक्तिगत निदान या इलाज के लिए नहीं।
+                        लक्षण गंभीर हों या बने रहें तो योग्य डॉक्टर से सलाह लें।
+                    </p>
+                </section>
+
+                <section class="awareness-section">
+                    <h2>Trusted Health Resources | भरोसेमंद स्रोत</h2>
+                    <p>Use these official resources to explore more health information.</p>
+
+                    <ul class="resources-list">
+                        <li><a class="reference-link" href="https://www.who.int/" target="_blank" rel="noopener noreferrer">World Health Organization (WHO)</a></li>
+                        <li><a class="reference-link" href="https://www.mohfw.gov.in/" target="_blank" rel="noopener noreferrer">Ministry of Health and Family Welfare, India</a></li>
+                        <li><a class="reference-link" href="https://www.nhm.gov.in/" target="_blank" rel="noopener noreferrer">National Health Mission, India</a></li>
+                        <li><a class="reference-link" href="https://www.nhs.uk/conditions/" target="_blank" rel="noopener noreferrer">NHS — Health Conditions</a></li>
+                        <li><a class="reference-link" href="https://www.unicef.org/health" target="_blank" rel="noopener noreferrer">UNICEF — Health</a></li>
+                    </ul>
+
+                    <p class="source-note">
+                        External references require an internet connection. Medical guidance can change;
+                        consult current official guidance and qualified healthcare professionals.
+                    </p>
+                </section>
+
+                <footer class="footer">
+                    <p>© 2026 SehatSetu. Healthcare for Everyone.</p>
+                </footer>
+
+            </div>
+        </main>
+
+    </div>
+
+    <script src="../js/script.js"></script>
+
+    <script>
+        function toggleArticle(button) {
+            const details = button.nextElementSibling;
+            const isOpen = details.classList.toggle("open");
+
+            button.textContent = isOpen
+            ? (currentLanguage === "en" ? "Show Less" : "कम पढ़ें")
+            : (currentLanguage === "en" ? "Read More" : "और पढ़ें");
+        }
+
+        function filterArticles() {
+            const searchTerm = document.getElementById("articleSearch")
+                .value.trim().toLowerCase();
+
+            const selectedCategory = document.getElementById("categoryFilter").value;
+            const cards = document.querySelectorAll(".article-card");
+
+            let visibleCount = 0;
+
+            cards.forEach(function(card) {
+                const categories = card.dataset.category.split(" ");
+                const text = card.textContent.toLowerCase();
+
+                const matchesSearch = text.includes(searchTerm);
+                const matchesCategory =
+                    selectedCategory === "all" ||
+                    categories.includes(selectedCategory) ||
+                    (selectedCategory === "women" &&
+                        (categories.includes("menstrual") ||
+                         categories.includes("reproductive")));
+
+                const shouldShow = matchesSearch && matchesCategory;
+                card.hidden = !shouldShow;
+
+                if (!shouldShow) {
+                    const details = card.querySelector(".article-details");
+                    const button = card.querySelector(".read-button");
+
+                    if (details) details.classList.remove("open");
+                    if (button) {
+                        button.setAttribute("aria-expanded", "false");
+                        button.textContent =
+                            currentLanguage === "hi" ? "और पढ़ें" : "Read More";
+                    }
+                }
+
+                if (shouldShow) visibleCount++;
+            });
+
+            document.querySelectorAll(".awareness-section").forEach(function(section) {
+                const sectionCards = section.querySelectorAll(".article-card");
+                const visibleCards = section.querySelectorAll(".article-card:not([hidden])");
+
+                section.hidden =
+                    sectionCards.length > 0 && visibleCards.length === 0;
+            });
+
+            document.getElementById("noResults").style.display =
+                visibleCount === 0 ? "block" : "none";
+
+            document.getElementById("resultsCount").textContent =
+                "Articles found: " + visibleCount;
+        }
+
+        document.getElementById("articleSearch")
+            .addEventListener("input", filterArticles);
+
+        document.getElementById("categoryFilter")
+            .addEventListener("change", filterArticles);
+
+        filterArticles();
+
+        
+        async function loadDatabaseArticles() {
+            const container = document.getElementById("databaseArticles");
+            const errorMessage = document.getElementById("databaseArticlesError");
+
+            try {
+                const languages = ["en", "hi"];
+
+                const results = await Promise.all(
+                    languages.map(async function(language) {
+                        const response = await fetch(
+                            "/api/articles?language=" + language
+                        );
+
+                        if (!response.ok) {
+                            throw new Error("Articles API request failed");
+                        }
+
+                        const result = await response.json();
+
+                        if (!result.ok || !Array.isArray(result.articles)) {
+                            throw new Error("Invalid articles response");
+                        }
+
+                        return result.articles;
+                    })
+                );
+
+                const articles = results.flat();
+
+                container.innerHTML = "";
+
+                articles.forEach(function(article) {
+                    const card = document.createElement("article");
+                    card.className = "article-card";
+                    card.dataset.category = getArticleCategory(article.category_id);
+
+                    const heading = document.createElement("h3");
+                    heading.textContent = article.title || "Health Article";
+
+                    const summary = document.createElement("p");
+                    summary.textContent = article.summary || "";
+
+                    const details = document.createElement("div");
+                    details.className = "article-details";
+
+                    const content = document.createElement("p");
+                    content.textContent = article.content || "";
+
+                    details.appendChild(content);
+                    card.appendChild(heading);
+                    card.appendChild(summary);
+                    card.appendChild(details);
+                    container.appendChild(card);
+                });
+
+                errorMessage.hidden = true;
+
+                filterArticles();
+            } catch (error) {
+                console.error("Unable to load database articles:", error);
+                errorMessage.hidden = false;
+            }
+        }
+
+        function getArticleCategory(categoryId) {
+            const categories = {
+                1: "prevention",
+                2: "women",
+                3: "menstrual",
+                4: "reproductive",
+                5: "nutrition"
+            };
+
+            return categories[categoryId] || "all";
+        }
+
+        loadDatabaseArticles();
+
+    </script>
+
+</body>
+</html>

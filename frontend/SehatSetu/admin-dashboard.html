@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SehatSetu | Admin Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        html,
+        body.admin-dashboard-page {
+            margin: 0 !important;
+            padding: 0 !important;
+            border-top: none !important;
+        }
+
+        body.admin-dashboard-page::before,
+        body.admin-dashboard-page::after {
+            content: none !important;
+            display: none !important;
+        }
+
+        body.admin-dashboard-page > header.admin-dashboard-header {
+            position: relative !important;
+            top: 0 !important;
+            margin-top: 16px !important;
+        }
+
+        /* Header */
+        .admin-dashboard-header {
+            min-height: 80px;
+            margin: 12px 16px 0;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+            background: #ffffff;
+            border: 1px solid #e0ebe2;
+            border-radius: 14px;
+            box-shadow: 0 3px 12px rgba(28, 92, 43, 0.08);
+        }
+
+        .admin-dashboard-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #218838;
+            font-size: 25px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .admin-dashboard-logo-icon {
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #218838;
+            color: #ffffff;
+            border-radius: 10px;
+            font-size: 25px;
+        }
+
+        .admin-dashboard-header-right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .admin-dashboard-home,
+        .admin-dashboard-logout {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            min-height: 42px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .admin-dashboard-home {
+            background: #eaf6ec;
+            color: #17652b;
+            border: 1px solid #d5e9d9;
+        }
+
+        .admin-dashboard-home:hover {
+            background: #d9efde;
+            color: #17652b;
+        }
+
+        .admin-dashboard-logout {
+            background: #218838;
+            color: #ffffff;
+            border: 1px solid #218838;
+        }
+
+        .admin-dashboard-logout:hover {
+            background: #17652b;
+            border-color: #17652b;
+        }
+
+        /* Main content */
+        .admin-dashboard-main {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 24px 32px;
+            box-sizing: border-box;
+        }
+
+        .admin-dashboard-intro {
+            margin-bottom: 28px;
+            padding: 24px;
+            background: #ffffff;
+            border: 1px solid #e0ebe2;
+            border-left: 5px solid #218838;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(28, 92, 43, 0.04);
+        }
+
+        .admin-dashboard-intro h1 {
+            margin: 0 0 8px;
+            color: #243b2b;
+            font-size: 28px;
+        }
+
+        .admin-dashboard-intro p {
+            margin: 0;
+            color: #718078;
+            line-height: 1.6;
+        }
+
+        .admin-dashboard-section-title {
+            margin: 0 0 18px;
+            color: #243b2b;
+            font-size: 21px;
+        }
+
+        /* Dashboard cards */
+        .admin-dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .admin-dashboard-card {
+            display: block;
+            min-width: 0;
+            padding: 24px;
+            box-sizing: border-box;
+            background: #ffffff;
+            border: 1px solid #e0ebe2;
+            border-radius: 14px;
+            box-shadow: 0 3px 12px rgba(28, 92, 43, 0.04);
+            color: #243b2b;
+            text-decoration: none;
+            transition: transform 0.2s ease,
+                        box-shadow 0.2s ease,
+                        border-color 0.2s ease;
+        }
+
+        .admin-dashboard-card:hover {
+            transform: translateY(-3px);
+            border-color: #a8d9b1;
+            box-shadow: 0 8px 20px rgba(28, 92, 43, 0.09);
+        }
+
+        .admin-dashboard-card-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            background: #eaf6ec;
+            border-radius: 12px;
+            font-size: 25px;
+        }
+
+        .admin-dashboard-card h2 {
+            margin: 0 0 10px;
+            color: #218838;
+            font-size: 20px;
+        }
+
+        .admin-dashboard-card p {
+            margin: 0 0 18px;
+            color: #718078;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .admin-dashboard-card-action {
+            color: #17652b;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .admin-dashboard-footer {
+            margin-top: 32px;
+            padding: 18px 0 4px;
+            border-top: 1px solid #e0ebe2;
+            color: #718078;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* Mobile layout */
+        @media (max-width: 650px) {
+            .admin-dashboard-header {
+                margin: 8px 8px 0;
+                padding: 14px;
+            }
+
+            .admin-dashboard-logo {
+                font-size: 22px;
+            }
+
+            .admin-dashboard-header-right {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .admin-dashboard-main {
+                padding: 18px 16px 28px;
+            }
+
+            .admin-dashboard-intro {
+                padding: 20px;
+                margin-bottom: 22px;
+            }
+
+            .admin-dashboard-intro h1 {
+                font-size: 25px;
+            }
+
+            .admin-dashboard-cards {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .admin-dashboard-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body class="admin-dashboard-page">
+
+    <header class="admin-dashboard-header">
+
+        <a href="/" class="admin-dashboard-logo">
+            <span class="admin-dashboard-logo-icon">✚</span>
+            <span>SehatSetu</span>
+        </a>
+
+        <div class="admin-dashboard-header-right">
+
+            <a href="/" class="admin-dashboard-home">
+                Main Website
+            </a>
+
+            <button
+                type="button"
+                class="admin-dashboard-logout"
+                onclick="logout()"
+            >
+                Logout
+            </button>
+
+        </div>
+    </header>
+
+    <main class="admin-dashboard-main">
+
+        <section class="admin-dashboard-intro">
+            <h1>Welcome, Admin!</h1>
+            <p>
+                Manage the SehatSetu healthcare platform from one place.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="admin-dashboard-section-title">
+                Platform Management
+            </h2>
+
+            <div class="admin-dashboard-cards">
+
+                <a href="/admin/users-page" class="admin-dashboard-card">
+                    <div class="admin-dashboard-card-icon">👥</div>
+                    <h2>Users</h2>
+                    <p>View and manage registered users.</p>
+                    <span class="admin-dashboard-card-action">
+                        Manage Users →
+                    </span>
+                </a>
+
+                <a href="/admin/facilities-page" class="admin-dashboard-card">
+                    <div class="admin-dashboard-card-icon">🏥</div>
+                    <h2>Healthcare Facilities</h2>
+                    <p>Manage hospitals, clinics and healthcare services.</p>
+                    <span class="admin-dashboard-card-action">
+                        Manage Facilities →
+                    </span>
+                </a>
+
+                <a href="/admin/camps-page" class="admin-dashboard-card">
+                    <div class="admin-dashboard-card-icon">⛑️</div>
+                    <h2>Medical Camps</h2>
+                    <p>Manage medical camps and their information.</p>
+                    <span class="admin-dashboard-card-action">
+                        Manage Camps →
+                    </span>
+                </a>
+
+                <a href="/admin/articles-page" class="admin-dashboard-card">
+                    <div class="admin-dashboard-card-icon">📚</div>
+                    <h2>Health Articles</h2>
+                    <p>Manage health awareness content and articles.</p>
+                    <span class="admin-dashboard-card-action">
+                        Manage Articles →
+                    </span>
+                </a>
+
+            </div>
+        </section>
+
+        <footer class="admin-dashboard-footer">
+            SehatSetu | Healthcare for Everyone
+        </footer>
+
+    </main>
+
+    <script>
+        async function logout() {
+            const logoutButton = document.querySelector(
+                ".admin-dashboard-logout"
+            );
+
+            logoutButton.disabled = true;
+            logoutButton.textContent = "Logging out...";
+
+            try {
+                const response = await fetch("/logout", {
+                method: "GET",
+                credentials: "same-origin"
+            });
+
+                if (response.ok) {
+                    window.location.replace("/");
+                } else {
+                    const errorMessage = await response.text();
+
+                    console.error("Logout failed:", response.status, errorMessage);
+
+                    alert(
+                        "Logout failed. Error code: " + response.status +
+                        ". Please check the Flask logout route."
+                    );
+
+                    logoutButton.disabled = false;
+                    logoutButton.textContent = "Logout";
+                }
+            } catch (error) {
+                console.error("Logout error:", error);
+
+                alert(
+                    "Server se connection nahi ho pa raha. " +
+                    "Please check that the Flask server is running."
+                );
+
+                logoutButton.disabled = false;
+                logoutButton.textContent = "Logout";
+            }
+        }
+    </script>
+
+</body>
+</html>

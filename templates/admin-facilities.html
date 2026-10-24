@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Healthcare Facilities | SehatSetu</title>
+
+    <style>
+        :root {
+            --green: #218838;
+            --dark-green: #17652b;
+            --light-green: #eaf6ec;
+            --background: #f5faf6;
+            --white: #ffffff;
+            --text: #243b2b;
+            --muted: #718078;
+            --border: #e0ebe2;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            background: var(--background);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1250px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: var(--white);
+            padding: 20px 24px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            margin-bottom: 24px;
+        }
+
+        .brand {
+            color: var(--dark-green);
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            margin: 6px 0 0;
+            font-size: 14px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 22px;
+            color: #17652b;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: #218838;
+            text-decoration: none;
+        }
+
+        .panel {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .panel-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 21px;
+        }
+
+        .count {
+            background: var(--light-green);
+            color: var(--dark-green);
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .search {
+            width: 100%;
+            max-width: 420px;
+            padding: 11px 13px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 18px;
+            outline: none;
+        }
+
+        .search:focus {
+            border-color: var(--green);
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            vertical-align: top;
+        }
+
+        th {
+            background: var(--light-green);
+            color: var(--dark-green);
+            white-space: nowrap;
+        }
+
+        tbody tr:hover {
+            background: #f8fcf8;
+        }
+
+        .message {
+            padding: 18px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .error {
+            color: #b42318;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            .header, .panel {
+                padding: 16px;
+            }
+
+            .brand {
+                font-size: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <header class="header">
+            <div>
+                <h1 class="brand">✚ SehatSetu</h1>
+                <p class="subtitle">Admin Panel / Healthcare Facility Management</p>
+            </div>
+
+            <a href="/dashboard" class="back-link">
+                ← Back to Dashboard
+            </a>
+        </header>
+
+        <main class="panel">
+            <div class="panel-heading">
+                <h2>Healthcare Facilities</h2>
+                <span class="count" id="facilityCount">Loading...</span>
+            </div>
+
+            <input
+                type="search"
+                id="searchInput"
+                class="search"
+                placeholder="Search facilities..."
+                aria-label="Search healthcare facilities"
+            >
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Facility ID</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>Phone</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="facilitiesTable">
+                        <tr>
+                            <td colspan="6" class="message">
+                                Loading healthcare facilities...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p id="message" class="message" role="status"></p>
+        </main>
+
+    </div>
+
+    <script>
+        const facilitiesTable = document.getElementById("facilitiesTable");
+        const facilityCount = document.getElementById("facilityCount");
+        const searchInput = document.getElementById("searchInput");
+        const message = document.getElementById("message");
+
+        let allFacilities = [];
+
+        function escapeHTML(value) {
+            return String(value ?? "").replace(/[&<>"']/g, function (char) {
+                const entities = {
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+                };
+
+                return entities[char];
+            });
+        }
+
+        function getValue(item, possibleKeys) {
+            const existingKey = possibleKeys.find(function (key) {
+                return Object.prototype.hasOwnProperty.call(item, key);
+            });
+
+            return existingKey ? item[existingKey] : "";
+        }
+
+        function renderFacilities(facilities) {
+            facilityCount.textContent = facilities.length + " facilities";
+
+            if (facilities.length === 0) {
+                facilitiesTable.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="message">
+                            No healthcare facilities found.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            facilitiesTable.innerHTML = facilities.map(function (facility) {
+                const id = getValue(facility, ["facility_id"]);
+                const name = getValue(facility, [
+                    "facility_name", "name", "hospital_name"
+                ]);
+                const type = getValue(facility, [
+                    "facility_type", "type", "category"
+                ]);
+                const address = getValue(facility, [
+                    "address", "full_address", "location"
+                ]);
+                const city = getValue(facility, ["city"]);
+                const phone = getValue(facility, [
+                    "phone", "phone_number", "contact_number"
+                ]);
+
+                return `
+                    <tr>
+                        <td>${escapeHTML(id || "—")}</td>
+                        <td>${escapeHTML(name || "—")}</td>
+                        <td>${escapeHTML(type || "—")}</td>
+                        <td>${escapeHTML(address || "—")}</td>
+                        <td>${escapeHTML(city || "—")}</td>
+                        <td>${escapeHTML(phone || "—")}</td>
+                    </tr>
+                `;
+            }).join("");
+        }
+
+        async function loadFacilities() {
+            try {
+                const response = await fetch("/admin/facilities");
+                const data = await response.json();
+
+                if (!response.ok || !data.ok) {
+                    throw new Error(
+                        data.message || "Unable to load healthcare facilities."
+                    );
+                }
+
+                allFacilities = Array.isArray(data.facilities)
+                    ? data.facilities
+                    : [];
+
+                renderFacilities(allFacilities);
+                message.textContent = "";
+                message.classList.remove("error");
+            } catch (error) {
+                facilityCount.textContent = "Unavailable";
+
+                facilitiesTable.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="message error">
+                            Could not load healthcare facilities.
+                            Please check your admin login and server connection.
+                        </td>
+                    </tr>
+                `;
+
+                message.textContent = error.message;
+                message.classList.add("error");
+            }
+        }
+
+        searchInput.addEventListener("input", function () {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+
+            const filteredFacilities = allFacilities.filter(function (facility) {
+                return Object.values(facility).some(function (value) {
+                    return String(value ?? "")
+                        .toLowerCase()
+                        .includes(searchTerm);
+                });
+            });
+
+            renderFacilities(filteredFacilities);
+        });
+
+        loadFacilities();
+    </script>
+</body>
+</html>

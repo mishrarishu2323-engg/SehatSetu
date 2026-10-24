@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | SehatSetu</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        body.admin-login-page {
+            margin: 0;
+            min-height: 100vh;
+            background: #f3f8f3;
+        }
+
+        .admin-login-main {
+            width: 100%;
+            min-height: 100vh;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 16px;
+        }
+
+        .admin-login-card {
+            width: 100%;
+            max-width: 430px;
+            box-sizing: border-box;
+            padding: 32px;
+            background: #fff;
+            border: 1px solid #dcebdd;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(28, 92, 43, 0.08);
+        }
+
+        .admin-login-card h1 {
+            margin: 0 0 10px;
+            color: #247a3b;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .admin-login-subtitle {
+            margin: 0 0 22px;
+            color: #666;
+            text-align: center;
+        }
+
+        .admin-login-card label {
+            display: block;
+            margin: 16px 0 7px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .admin-login-card input {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 1px solid #cbdccf;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .admin-login-card input:focus {
+            outline: 2px solid #8acb98;
+            border-color: #32964b;
+        }
+
+        .admin-login-button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #278441;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .admin-login-button:hover {
+            background: #1d6833;
+        }
+
+        .admin-login-button:disabled {
+            opacity: 0.7;
+            cursor: wait;
+        }
+
+        .admin-login-back {
+            display: inline-block;
+            margin-top: 22px;
+            color: #17652b;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .admin-login-back:hover {
+            color: #218838;
+            text-decoration: none;
+        }
+
+        .admin-login-message {
+            margin: 14px 0 0;
+            color: #b42318;
+            text-align: center;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        @media (max-width: 480px) {
+            .admin-login-card {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body class="admin-login-page">
+
+    <main class="admin-login-main">
+        <section class="admin-login-card">
+
+            <h1 data-en="Admin Login" data-hi="एडमिन लॉगिन">
+                Admin Login
+            </h1>
+
+            <p
+                class="admin-login-subtitle"
+                data-en="Welcome to SehatSetu Administration"
+                data-hi="SehatSetu एडमिन पोर्टल में आपका स्वागत है"
+            >
+                Welcome to SehatSetu Administration
+            </p>
+
+            <form id="adminLoginForm">
+
+                <label
+                    for="adminEmail"
+                    data-en="Admin ID / Email"
+                    data-hi="एडमिन आईडी / ईमेल"
+                >
+                    Admin ID / Email
+                </label>
+
+                <input
+                    type="text"
+                    id="adminEmail"
+                    name="adminEmail"
+                    placeholder="Enter admin ID or email"
+                    autocomplete="username"
+                    required
+                >
+
+                <label
+                    for="adminPassword"
+                    data-en="Password"
+                    data-hi="पासवर्ड"
+                >
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="adminPassword"
+                    name="adminPassword"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <button
+                    type="submit"
+                    class="admin-login-button"
+                    id="adminLoginButton"
+                    data-en="Login"
+                    data-hi="लॉगिन करें"
+                >
+                    Login
+                </button>
+
+                <p
+                    id="adminLoginMessage"
+                    class="admin-login-message"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+
+            </form>
+
+            <a
+                href="../index.html"
+                class="admin-login-back"
+                data-en="← Back to Dashboard"
+                data-hi="← डैशबोर्ड पर वापस जाएँ"
+            >
+                ← Back to Dashboard
+            </a>
+
+        </section>
+    </main>
+
+    <script>
+        let adminCurrentLanguage = "en";
+
+        function toggleAdminLanguage() {
+            adminCurrentLanguage =
+                adminCurrentLanguage === "en" ? "hi" : "en";
+
+            document.documentElement.lang = adminCurrentLanguage;
+
+            document.querySelectorAll("[data-en][data-hi]")
+                .forEach(function (element) {
+                    element.textContent =
+                        element.getAttribute("data-" + adminCurrentLanguage);
+                });
+
+            document.getElementById("languageBtn").textContent =
+                adminCurrentLanguage === "en" ? "हिंदी" : "English";
+        }
+
+        document.getElementById("adminLoginForm")
+            .addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                const form = event.currentTarget;
+                const message = document.getElementById("adminLoginMessage");
+                const button = document.getElementById("adminLoginButton");
+
+                message.textContent = "";
+                button.disabled = true;
+
+                button.textContent =
+                    adminCurrentLanguage === "en"
+                        ? "Please wait..."
+                        : "कृपया प्रतीक्षा करें...";
+
+                try {
+                    const response = await fetch("/api/login?role=admin", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        credentials: "same-origin",
+                        body: JSON.stringify({
+                            adminEmail: form.elements["adminEmail"].value.trim(),
+                            adminPassword: form.elements["adminPassword"].value
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.ok) {
+                        window.location.href = data.redirect || "/dashboard";
+                        return;
+                    }
+
+                    message.textContent = data.message ||
+                        (adminCurrentLanguage === "en"
+                            ? "Login failed. Please check your credentials."
+                            : "लॉगिन असफल हुआ। कृपया अपनी जानकारी जाँचें।");
+
+                } catch (error) {
+                    message.textContent =
+                        adminCurrentLanguage === "en"
+                            ? "Server not reachable. Please start the Flask app."
+                            : "सर्वर से संपर्क नहीं हो पा रहा। कृपया Flask ऐप शुरू करें।";
+                } finally {
+                    button.disabled = false;
+
+                    button.textContent =
+                        adminCurrentLanguage === "en" ? "Login" : "लॉगिन करें";
+                }
+            });
+    </script>
+
+</body>
+</html>
