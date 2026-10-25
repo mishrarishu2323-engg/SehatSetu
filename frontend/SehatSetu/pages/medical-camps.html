@@ -144,6 +144,45 @@
             .camp-grid { grid-template-columns: 1fr; }
             .camp-search { flex-direction: column; }
         }
+
+        
+        /* Page Heading Box */
+        .page-hero {
+            padding: 28px 24px;
+            margin-bottom: 28px;
+            background: linear-gradient(120deg, #e4f5e7, #f8fcf8);
+            border: 1px solid #d9eedc;
+            border-radius: 18px;
+        }
+
+        .page-hero h1 {
+            color: var(--dark-green);
+            font-size: 32px;
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+
+        .page-hero p {
+            color: #52675a;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 650px) {
+            .page-hero {
+                padding: 22px 18px;
+            }
+
+            .page-hero h1 {
+                font-size: 27px;
+            }
+
+            .page-hero p {
+                font-size: 16px;
+            }
+        }
+
+
     </style>
 </head>
 
@@ -215,13 +254,29 @@
         </a>
 
         <section class="page-heading">
-            <h1 data-en="Medical Camps" data-hi="मेडिकल कैंप">
-                Medical Camps
-            </h1>
-            <p data-en="Discover health camps and explore registration options."
-               data-hi="स्वास्थ्य शिविर खोजें और पंजीकरण के विकल्प देखें।">
-                Discover health camps and explore registration options.
-            </p>
+            
+            <div class="page-hero">
+                <p
+                    data-en="SEHATSETU MEDICAL CAMP EXPLORER"
+                    data-hi="सेहतसेतु मेडिकल कैंप एक्सप्लोरर"
+                    style="font-size: 12px; font-weight: bold; letter-spacing: 1.5px; color: #218838; text-transform: uppercase;">
+                    SEHATSETU MEDICAL CAMP EXPLORER
+                </p>
+
+                <h1
+                    data-en="Medical Camps"
+                    data-hi="मेडिकल कैंप">
+                    Medical Camps
+                </h1>
+
+                <p
+                    data-en="Discover health camps and explore registration options."
+                    data-hi="स्वास्थ्य शिविर खोजें और पंजीकरण के विकल्प जानें।"
+                    style="font-size: 16px; font-weight: 500;">
+                    Discover health camps and explore registration options.
+                </p>
+            </div>
+
         </section>
 
         <section class="camp-search">
@@ -271,10 +326,12 @@
             Try Again
         </button>
 
-        <footer class="footer"
-                data-en="© 2026 SehatSetu. Healthcare for Everyone."
-                data-hi="© 2026 सेहतसेतु। सबके लिए स्वास्थ्य सेवा।">
-            © 2026 SehatSetu. Healthcare for Everyone.
+        <footer
+            class="footer"
+            data-en="© 2026 SehatSetu | Team Code Crackers | Healthcare for Everyone."
+            data-hi="© 2026 सेहतसेतु | टीम कोड क्रैकर्स | सबके लिए स्वास्थ्य सेवा।"
+            style="text-align: center; padding: 15px; background: transparent;">
+            © 2026 SehatSetu | Team Code Crackers | Healthcare for Everyone.
         </footer>
     </main>
 </div>

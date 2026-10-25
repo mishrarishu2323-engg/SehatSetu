@@ -44,7 +44,7 @@ body::before {
     top: 0;
     left: 0;
     right: 0;
-    height: 112px;
+    height: 80px;
     background: var(--background);
     z-index: 999;
 }
